@@ -1,7 +1,7 @@
-require('dotenv') 
+require('dotenv').config()
 const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI, {useMongoClient: true})
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
 const { Task, Report, Car, User } = require('./schema.js')
 
@@ -36,6 +36,7 @@ const chris = new User({
 })
 
 User.remove({})
-    .then(() => chris.save())
-    .then(() => console.log(`Successful save ${chris}`))
-    .then(() => mongoose.connection.close())
+.then(() => chris.save())
+.then(() => console.log(`Successful save ${chris.name}`))
+.then(() => mongoose.connection.close())
+.catch((error) => console.log(error))
