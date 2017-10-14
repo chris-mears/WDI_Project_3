@@ -26,4 +26,21 @@ router.get('/:id', async (req, res) => {
     }
   })
 
+  router.patch('/:id', async (req, res) => {
+    try {
+    const updatedTask = req.body
+    const user = await User.findById(req.params.userId)
+    const car = user.cars.id(req.params.carId)
+    const task = car.tasks.id(req.params.id)
+    task.title = updatedTask.title
+    task.description = updatedTask.description
+    task.progress = updatedTask.progress
+    const saved = await user.save()
+    res.json(saved)
+    } 
+    catch (err) {
+      res.send(err)
+    }
+  })
+
   module.exports = router
