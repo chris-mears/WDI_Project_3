@@ -15,7 +15,7 @@ router.get('/:id', async (req, res) => {
   router.post('/', async (req, res) => {
     try {
     const user = await User.findById(req.params.userId)
-    const newCar = new Car(req.body)
+    const newCar = new Car(req.body.car)
     user.cars.push(newCar)
     const saved = await user.save()
     res.json(saved)

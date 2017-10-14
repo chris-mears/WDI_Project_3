@@ -86,7 +86,7 @@ class HomePage extends Component {
         return (
             <div>
                 <h3>Please Select an Existing User</h3>
-                {this.state.users.map(user => {return (<Link key={user._id} to={`/${user.username}`}>{user.userName}<br /></Link>)})}
+                {this.state.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
                 <form onSubmit={this.handleLogIn}>
                     <div>
                         <label htmlFor="userName">User Name</label>
