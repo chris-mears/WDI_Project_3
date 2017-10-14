@@ -43,4 +43,16 @@ router.get('/:id', async (req, res) => {
     }
   })
 
+  router.delete('/:id', async (req, res) => {
+    try {
+    const user = await User.findById(req.params.userId)
+    const car = user.cars.id(req.params.carId)
+    car.tasks.id(req.params.id).remove()
+    const saved = await user.save()
+    res.json(saved)
+    } catch (err) {
+      res.send(err)
+    }
+  })
+
   module.exports = router
