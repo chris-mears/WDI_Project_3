@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const UsersContoller = require('./controllers/users')
+const CarsController = require('./controllers/cars')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 
 
 app.use('/api/users', UsersContoller)
+app.use('/api/users/:userId/', CarsController)
 
 
 app.get('/', (req,res) => {
