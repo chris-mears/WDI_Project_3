@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const app = express();
 const UsersContoller = require('./controllers/users')
 const CarsController = require('./controllers/cars')
+const TasksController = require('./controllers/tasks')
+const ReportsController = require('./controllers/reports')
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
@@ -24,7 +26,9 @@ app.use(bodyParser.json());
 
 
 app.use('/api/users', UsersContoller)
-app.use('/api/users/:userId/', CarsController)
+app.use('/api/users/:userId/cars', CarsController)
+app.use('/api/users/:userId/cars/:carId/tasks', TasksController)
+app.use('/api/users/:userId/cars/:carId/reports', ReportsController)
 
 
 app.get('/', (req,res) => {
