@@ -6,7 +6,11 @@ class HomePage extends Component {
     state = {
         users: [],
         user: {},
-        signInUser: {
+        loggedUser: {
+            userName: '',
+            password: ''
+        },
+        signUp: {
             userName: '',
             password: '',
             name: ''
@@ -29,20 +33,43 @@ class HomePage extends Component {
         }
     }
 
-    handleChange = (event) => {
+    handleLogInChange = (event) => {
     const attribute = event.target.name
-    const updateUser = {...this.state.signInUser}
+    const updateUser = {...this.state.loggedUser}
     updateUser[attribute] = event.target.value
-    this.setState({signInUser: updateUser})
+    this.setState({loggedUser: updateUser})
   }
 
-  handleLogin = async (event) => {
+  handleSignUpChange = (event) => {
+    const attribute = event.target.name
+    const updateUser = {...this.state.signUp}
+    updateUser[attribute] = event.target.value
+    this.setState({signUp: updateUser})
+  }
+
+  handleLogIn = async (event) => {
     event.preventDefault()
     try {
         const res = await axios.post('/api/users/signin', {
-      'user': this.state.signInUser
+      'user': this.state.loggedUser
     })
     this.setState({user: res.data})
+    if (this.state.user !== null) {
+        this.setState({redirectToUser: true})
+    }
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  handleSignUpSubmit = async (event) => {
+    event.preventDefault()
+    try {
+    const res = await axios.post('/api/users/', {
+      'user': this.state.signUp
+    })
+    this.setState({user: res.data})
+    console.log()
     if (this.state.user !== null) {
         this.setState({redirectToUser: true})
     }
@@ -59,25 +86,53 @@ class HomePage extends Component {
         return (
             <div>
                 <h3>Please Select an Existing User</h3>
-                {this.state.users.map(user => {return (<Link key={user._id} to={`/${user._id}`}>{user.userName}</Link>)})}
-                <form onSubmit={this.handleLogin}>
+                {this.state.users.map(user => {return (<Link key={user._id} to={`/${user.username}`}>{user.userName}<br /></Link>)})}
+                <form onSubmit={this.handleLogIn}>
                     <div>
                         <label htmlFor="userName">User Name</label>
                         <input
-                            onChange={this.handleChange}
+                            onChange={this.handleLogInChange}
                             name="userName"
                             type="text"
-                            value={this.state.signInUser.userName}/>
+                            value={this.state.loggedUser.userName}/>
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
                         <input
-                            onChange={this.handleChange}
-                            value={this.state.signInUser.password}
+                            onChange={this.handleLogInChange}
+                            value={this.state.loggedUser.password}
                             name="password"
-                            type="text"/>
+                            type="password"/>
                     </div>
                     <button>Login</button>
+                </form>
+
+                <form onSubmit={this.handleSignUpSubmit}>
+                    <div>
+                        <label htmlFor="userName">User Name</label>
+                        <input
+                            onChange={this.handleSignUpChange}
+                            name="userName"
+                            type="text"
+                            value={this.state.signUp.userName}/>
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password</label>
+                        <input
+                            onChange={this.handleSignUpChange}
+                            value={this.state.signUp.password}
+                            name="password"
+                            type="password"/>
+                    </div>
+                    <div>
+                        <label htmlFor="name">Name</label>
+                        <input
+                            onChange={this.handleSignUpChange}
+                            value={this.state.signUp.name}
+                            name="name"
+                            type="text"/>
+                    </div>
+                    <button>Sign Up</button>
                 </form>
             </div>
         );
