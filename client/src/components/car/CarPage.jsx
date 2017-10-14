@@ -14,8 +14,8 @@ class CarPage extends Component {
   }
 
   async componentWillMount () {
-    const { userId, carId } = this.props.match.params
-    const res = await axios.get(`/api/users/${userId}/${carId}`)
+    const { userId, carId } = this.props.history.location.state
+    const res = await axios.get(`/api/users/${userId}/cars/${carId}`)
     this.setState({car: res.data})
   }
 

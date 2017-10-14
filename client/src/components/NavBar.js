@@ -6,13 +6,7 @@ const NavBar = () => {
   return (
     <div>
       <div>
-        <Link to="/">Home</Link>
-      </div>
-      <div>
-        <Link to="/:userIid">LogIn</Link>
-      </div>
-      <div>
-        <Link to="/:userId/:carId">Car</Link>
+        <Link to="/">LogOut</Link>
       </div>
     </div>
   )
