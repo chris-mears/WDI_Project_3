@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const taskSchema = mongoose.Schema({
     title: {type: String, default: 'New Task'},
-    description: {type: String, default: 'Description'},
+    description: String,
     progress: {type: String, default: 'To Do'}
 })
 
