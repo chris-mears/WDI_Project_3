@@ -61,6 +61,25 @@ class UserPage extends Component {
     }
   }
   
+  createReport = async (carId) => {
+    try {
+    const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/reports/`)
+    this.setState({user: res.data})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  createTask = async (carId, newTask) => {
+    try { 
+    const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/tasks/`, {
+      task: newTask
+    })
+    this.setState({user: res.data})
+    } catch (err) {
+        console.log(err)
+    }
+  }
 
   async componentWillMount() {
     const { userName } = this.props.match.params
@@ -114,7 +133,9 @@ class UserPage extends Component {
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}
                 deleteTask={this.deleteTask}
-                deleteReport={this.deleteReport}/>
+                deleteReport={this.deleteReport}
+                createReport={this.createReport}
+                createTask={this.createTask}/>
             </div>
         );
     }

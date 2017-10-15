@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
     try {
     const user = await User.findById(req.params.userId)
     const car = user.cars.id(req.params.carId)
-    const newTask = new Task(req.body)
+    const newTask = new Task(req.body.task)
     car.tasks.push(newTask)
     const saved = await user.save()
     res.json(saved)

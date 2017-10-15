@@ -50,6 +50,30 @@ class CarPage extends Component {
     }
   }
 
+  createReport = async (newReport) => {
+    try {
+    const { userId, carId } = this.props.history.location.state 
+    const res = await axios.post(`/api/users/${userId}/cars/${carId}/reports/`)
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  createTask = async (newTask) => {
+    try {
+    const { userId, carId } = this.props.history.location.state 
+    const res = await axios.post(`/api/users/${userId}/cars/${carId}/tasks/`, {
+      task: newTask
+    })
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   handleChange = (event) => {
     const attribute = event.target.name
     const clonedCar = {...this.state.car}
@@ -83,8 +107,12 @@ class CarPage extends Component {
                 deleteCar={this.deleteCar}
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}/>
-                <Tasks tasks={this.state.car.tasks} deleteTask={this.deleteTask}/>
-                <Reports reports={this.state.car.reports} deleteReport={this.deleteReport}/>
+                <Tasks tasks={this.state.car.tasks} 
+                deleteTask={this.deleteTask}
+                createTask={this.createTask}/>
+                <Reports reports={this.state.car.reports} 
+                deleteReport={this.deleteReport}
+                createReport={this.createReport}/>
             </div>
         );
     }

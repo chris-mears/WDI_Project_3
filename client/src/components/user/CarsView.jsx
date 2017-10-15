@@ -16,11 +16,13 @@ class CarsView extends Component {
                                 <Tasks tasks={car.tasks} 
                                 userId={this.props.user._id}
                                 carId={car._id}
-                                deleteTask={this.props.deleteTask}/>
+                                deleteTask={this.props.deleteTask}
+                                createTask={this.props.createTask}/>
                                 <Reports reports={car.reports}
                                 userId={this.props.user._id}
                                 carId={car._id}
-                                deleteReport={this.props.deleteReport}/>
+                                deleteReport={this.props.deleteReport}
+                                createReport={this.props.createReport}/>
                             </div>
                         )
                 })
