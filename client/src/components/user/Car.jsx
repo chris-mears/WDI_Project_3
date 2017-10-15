@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
 
 const CarDiv = styled.div`

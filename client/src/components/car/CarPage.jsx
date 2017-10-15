@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import Car from './Car'
+import Reports from './Reports.jsx'
+import Tasks from './Tasks'
 
 class CarPage extends Component {
     state={
@@ -43,7 +46,7 @@ class CarPage extends Component {
                 {this.state.car.model}
                 <button onClick={this.deleteCar}>Delete</button>
                 </div>
-                {this.state.car.year}
+
             </div>
         );
     }
