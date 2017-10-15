@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import Car from './Car'
-import Reports from './Reports.jsx'
+import Reports from './Reports'
 import Tasks from './Tasks'
 
 class CarPage extends Component {
@@ -28,7 +28,23 @@ class CarPage extends Component {
     }
   }
 
-  async componentWillMount () {
+  handleChange = (event) => {
+    const attribute = event.target.name
+    const clonedCar = {...this.state.car}
+    clonedCar[attribute] = event.target.value
+    this.setState({car: clonedCar})
+  }
+
+  updateCar = async () => {
+    const { userId, carId } = this.props.history.location.state
+    const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
+      car: this.state.car
+    })
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+  }
+
+  async componentWillMount() {
     const { userId, carId } = this.props.history.location.state
     const res = await axios.get(`/api/users/${userId}/cars/${carId}`)
     this.setState({car: res.data})
@@ -41,12 +57,12 @@ class CarPage extends Component {
         }
         return (
             <div>
-                <div>
-                {this.state.car.make}
-                {this.state.car.model}
-                <button onClick={this.deleteCar}>Delete</button>
-                </div>
-
+                <Car  car={this.state.car} 
+                deleteCar={this.deleteCar}
+                handleChange={this.handleChange}
+                updateCar={this.updateCar}/>
+                <Tasks />
+                <Reports />
             </div>
         );
     }

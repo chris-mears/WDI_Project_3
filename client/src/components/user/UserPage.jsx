@@ -15,7 +15,7 @@ class UserPage extends Component {
     }
   }
 
-  handleChange = (event) => {
+  handleNewChange = (event) => {
     const attribute = event.target.name
     const updateCar = {...this.state.newCar}
     updateCar[attribute] = event.target.value
@@ -54,7 +54,6 @@ class UserPage extends Component {
     const attribute = event.target.name
     const clonedUser = {...this.state.user}
     const car = clonedUser.cars.find(i => i._id === carId)
-    console.log(car)
     car[attribute] = event.target.value
     this.setState({user: clonedUser})
   }
@@ -62,7 +61,6 @@ class UserPage extends Component {
   updateCar = async (userId, carId) => {
     const clonedUser = {...this.state.user}
     const car = clonedUser.cars.find(i => i._id === carId)
-
     const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
       car: car
     })
@@ -78,7 +76,7 @@ class UserPage extends Component {
                 <div>
                         <label htmlFor="make">Make</label>
                         <input
-                            onChange={this.handleChange}
+                            onChange={this.handleNewChange}
                             name="make"
                             type="text"
                             value={this.state.newCar.make}/>
@@ -86,7 +84,7 @@ class UserPage extends Component {
                 <div>
                         <label htmlFor="model">Model</label>
                         <input
-                            onChange={this.handleChange}
+                            onChange={this.handleNewChange}
                             value={this.state.newCar.model}
                             name="model"
                             type="text"/>
