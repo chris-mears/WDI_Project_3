@@ -104,6 +104,44 @@ class UserPage extends Component {
     this.setState({user: res.data})
   }
 
+  handleTaskChange = (event, carId, taskId) => {
+    const attribute = event.target.name
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+    const task = car.tasks.find(i => i._id === taskId)
+    task[attribute] = event.target.value
+    this.setState({user: clonedUser})
+  }
+
+  updateTask = async (carId, taskId) => {
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+    const task = car.tasks.find(i => i._id === taskId)
+    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`, {
+      task: task
+    })
+    this.setState({user: res.data})
+  }
+
+  handleReportChange = (event, carId, reportId) => {
+    const attribute = event.target.name
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+    const report = car.reports.find(i => i._id === reportId)
+    car[attribute] = event.target.value
+    this.setState({user: clonedUser})
+  }
+
+  updateReport = async (carId, reportId) => {
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+    const report = car.reports.find(i => i._id === reportId)
+    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`, {
+      report: report
+    })
+    this.setState({user: res.data})
+  }
+
     render() {
         return (
             <div>
@@ -135,7 +173,11 @@ class UserPage extends Component {
                 deleteTask={this.deleteTask}
                 deleteReport={this.deleteReport}
                 createReport={this.createReport}
-                createTask={this.createTask}/>
+                createTask={this.createTask}
+                handleTaskChange={this.handleTaskChange}
+                handleReportChange={this.handleReportChange}
+                updateTask={this.updateTask}
+                updateReport={this.updateReport}/>
             </div>
         );
     }

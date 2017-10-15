@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import styled from 'styled-components'
+import Task from './Task'
 
 class Tasks extends Component {
     state = {
@@ -34,7 +36,12 @@ class Tasks extends Component {
                 </form>
                 <ul>
                 {this.props.tasks.map((task) => {
-        return (<li key={task._id}>{task.title}<button onClick={() => this.props.deleteTask(this.props.carId, task._id)}>Delete</button></li>
+        return (<li key={task._id}>
+            <Task task={task} 
+            handleTaskChange={this.props.handleTaskChange} 
+            updateTask={this.props.updateTask} 
+            carId={this.props.carId} />  
+            <button onClick={() => this.props.deleteTask(this.props.carId, task._id)}>Delete</button></li>
         )
       })}</ul>
             </div>
