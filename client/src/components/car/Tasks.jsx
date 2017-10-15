@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Task from './Task'
 
 class Tasks extends Component {
     state = {
@@ -45,8 +46,10 @@ class Tasks extends Component {
                 </form>
                 <ul>
                 {this.props.tasks.map((task) => {
-        return (<li key={task._id}>{task.title}<button onClick={() => this.props.deleteTask(task._id)}>Delete</button>
-        <ul><li>{task.description}</li></ul>
+        return (<li key={task._id}>
+        <Task task={task}
+        handleTaskChange={this.props.handleTaskChange} 
+        updateTask={this.props.updateTask} />
         </li>
         )
       })}</ul>
