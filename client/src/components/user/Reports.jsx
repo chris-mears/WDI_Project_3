@@ -4,7 +4,12 @@ class Reports extends Component {
     render() {
         return (
             <div>
-                Reports
+                <h4>Service Reports:</h4>
+                <ul>
+                {this.props.reports.map((report) => {
+        return (<li>{report.title}</li>
+        )
+      })}</ul>
             </div>
         );
     }
