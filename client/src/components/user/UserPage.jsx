@@ -128,7 +128,7 @@ class UserPage extends Component {
     const clonedUser = {...this.state.user}
     const car = clonedUser.cars.find(i => i._id === carId)
     const report = car.reports.find(i => i._id === reportId)
-    car[attribute] = event.target.value
+    report[attribute] = event.target.value
     this.setState({user: clonedUser})
   }
 
@@ -145,8 +145,7 @@ class UserPage extends Component {
     render() {
         return (
             <div>
-                {this.state.user.name} Page<br />
-                {this.state.user.userName}<br />
+                <h2>{this.state.user.name} Page</h2>
                 <form onSubmit={this.handleSubmit}>
                 <div>
                         <label htmlFor="make">Make</label>
