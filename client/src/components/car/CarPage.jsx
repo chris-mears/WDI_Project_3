@@ -61,8 +61,8 @@ class CarPage extends Component {
                 deleteCar={this.deleteCar}
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}/>
-                <Tasks />
-                <Reports />
+                <Tasks tasks={this.state.car.tasks}/>
+                <Reports reports={this.state.car.reports}/>
             </div>
         );
     }
