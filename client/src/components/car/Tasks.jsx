@@ -7,7 +7,7 @@ class Tasks extends Component {
                 <h4>Tasks:</h4>
                 <ul>
                 {this.props.tasks.map((task) => {
-        return (<li>{task.title}
+        return (<li key={task._id}>{task.title}<button onClick={() => this.props.deleteTask(task._id)}>Delete</button>
         <ul><li>{task.description}</li></ul>
         </li>
         )

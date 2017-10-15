@@ -7,7 +7,7 @@ class Reports extends Component {
                 <h4>Service Reports:</h4>
                 <ul>
                 {this.props.reports.map((report) => {
-        return (<li>{report.title}<button>Delete</button></li>
+        return (<li key={report._id}>{report.title}<button onClick={() =>this.props.deleteReport(this.props.carId, report._id)}>Delete</button></li>
         )
       })}</ul>
             </div>

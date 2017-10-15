@@ -28,6 +28,28 @@ class CarPage extends Component {
     }
   }
 
+  deleteTask = async (taskId) => {
+    try {
+    const { userId, carId } = this.props.history.location.state 
+    const res = await axios.delete(`/api/users/${userId}/cars/${carId}/tasks/${taskId}`)
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  deleteReport = async (reportId) => {
+    try {
+      const { userId, carId } = this.props.history.location.state 
+    const res = await axios.delete(`/api/users/${userId}/cars/${carId}/reports/${reportId}`)
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
   handleChange = (event) => {
     const attribute = event.target.name
     const clonedCar = {...this.state.car}
@@ -61,8 +83,8 @@ class CarPage extends Component {
                 deleteCar={this.deleteCar}
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}/>
-                <Tasks tasks={this.state.car.tasks}/>
-                <Reports reports={this.state.car.reports}/>
+                <Tasks tasks={this.state.car.tasks} deleteTask={this.deleteTask}/>
+                <Reports reports={this.state.car.reports} deleteReport={this.deleteReport}/>
             </div>
         );
     }

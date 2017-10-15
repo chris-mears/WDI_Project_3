@@ -42,6 +42,24 @@ class UserPage extends Component {
         console.log(err)
     }
   }
+
+  deleteTask = async (carId, taskId) => {
+    try {
+    const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`)
+    this.setState({user: res.data})
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+  deleteReport = async (carId, reportId) => {
+    try {
+    const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`)
+    this.setState({user: res.data})
+    } catch (err) {
+        console.log(err)
+    }
+  }
   
 
   async componentWillMount() {
@@ -94,7 +112,9 @@ class UserPage extends Component {
                 <CarsView user={this.state.user} 
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
-                updateCar={this.updateCar}/>
+                updateCar={this.updateCar}
+                deleteTask={this.deleteTask}
+                deleteReport={this.deleteReport}/>
             </div>
         );
     }
