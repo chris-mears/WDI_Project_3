@@ -89,13 +89,50 @@ class CarPage extends Component {
     const car = res.data.cars.find(i => i._id === carId)
     this.setState({car})
   }
+  
+  handleTaskChange = (event, taskId) => {
+    const attribute = event.target.name
+    const clonedCar = {...this.state.car}
+    const task = clonedCar.tasks.find(i => i._id === taskId)
+    task[attribute] = event.target.value
+    this.setState({car: clonedCar})
+  }
+
+  updateTask = async (taskId) => {
+    const { userId, carId } = this.props.history.location.state
+    const clonedCar = {...this.state.car}
+    const task = clonedCar.tasks.find(i => i._id === taskId)
+    const res = await axios.patch(`/api/users/${userId}/cars/${carId}/tasks/${taskId}`, {
+      task: task
+    })
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+  }
+
+  handleReportChange = (event, reportId) => {
+    const attribute = event.target.name
+    const clonedCar = {...this.state.car}
+    const report = clonedCar.reports.find(i => i._id === reportId)
+    report[attribute] = event.target.value
+    this.setState({car: clonedCar})
+  }
+
+  updateReport = async (reportId) => {
+    const { userId, carId } = this.props.history.location.state
+    const clonedCar = {...this.state.car}
+    const report = clonedCar.reports.find(i => i._id === reportId)
+    const res = await axios.patch(`/api/users/${userId}/cars/${carId}/reports/${reportId}`, {
+      report: report
+    })
+    const car = res.data.cars.find(i => i._id === carId)
+    this.setState({car})
+  }
 
   async componentWillMount() {
     const { userId, carId } = this.props.history.location.state
     const res = await axios.get(`/api/users/${userId}/cars/${carId}`)
     this.setState({car: res.data})
   }
-
 
     render() {
         if (this.state.redirectBack) {
@@ -109,10 +146,14 @@ class CarPage extends Component {
                 updateCar={this.updateCar}/>
                 <Tasks tasks={this.state.car.tasks} 
                 deleteTask={this.deleteTask}
-                createTask={this.createTask}/>
-                <Reports reports={this.state.car.reports} 
+                createTask={this.createTask}
+                handleTaskChange={this.handleTaskChange} 
+                updateTask={this.updateTask} />
+                <Reports serviceReports={this.state.car.reports} 
                 deleteReport={this.deleteReport}
-                createReport={this.createReport}/>
+                createReport={this.createReport} 
+                handleReportChange={this.handleReportChange} 
+                updateReport={this.updateReport} />
             </div>
         );
     }

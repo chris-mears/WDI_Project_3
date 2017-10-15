@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Report from './Report.jsx'
 
 class Reports extends Component {
     render() {
@@ -8,10 +9,12 @@ class Reports extends Component {
                 <h5>New Report:</h5>
                 <button onClick={this.props.createReport}>New Report</button>
                 <ul>
-                {this.props.reports.map((report) => {
-        return (<li key={report._id}>{report.title}<button onClick={() =>this.props.deleteReport(report._id)}>Delete</button>
-        <ul><li>{report.description}</li></ul>
-        </li>
+                {this.props.serviceReports.map((report) => {
+                return (<li key={report._id}>
+                    <Report report={report}
+                    handleReportChange={this.props.handleReportChange}
+                    updateReport={this.props.updateReport} />
+                    </li>
         )
       })}</ul>
             </div>
