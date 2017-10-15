@@ -13,8 +13,12 @@ class CarsView extends Component {
                                 deleteCar={this.props.deleteCar} 
                                 handleChange={this.props.handleChange}
                                 updateCar={this.props.updateCar}/>
-                                <Tasks />
-                                <Reports />
+                                <Tasks tasks={car.tasks} 
+                                userId={this.props.user._id}
+                                car={car._id}/>
+                                <Reports reports={car.reports}
+                                userId={this.props.user._id}
+                                car={car._id}/>
                             </div>
                         )
                 })
