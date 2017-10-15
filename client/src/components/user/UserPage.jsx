@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import CarsView from './CarsView'
 
 class UserPage extends Component {
     state={
@@ -50,21 +51,26 @@ class UserPage extends Component {
     this.setState({user: res.data})
   }
 
+  handleChange = (event, carId) => {
+    const attribute = event.target.name
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+    console.log(car)
+    car[attribute] = event.target.value
+    this.setState({user: clonedUser})
+  }
+  // Trigger patch when leaving an input field
+  updateCar = async (userId, carId) => {
+    const clonedUser = {...this.state.user}
+    const car = clonedUser.cars.find(i => i._id === carId)
+
+    const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
+      car: car
+    })
+    this.setState({user: res.data})
+  }
+
     render() {
-        const cars = this.state.user.cars.map(car => {
-                    return (
-                            <div key={car._id}>
-                            <Link to={{
-                                    pathname: `/${this.state.user.userName}/${car.make}${car.model}`,
-                                    state: { userId: this.state.user._id, 
-                                             carId: car._id }
-                            }}>
-                            {car.make} {car.model}
-                            </Link>
-                            <button onClick={() => this.deleteCar(car._id)}>Delete</button>
-                            </div>
-                        )
-                })
         return (
             <div>
                 {this.state.user.name} Page<br />
@@ -88,7 +94,10 @@ class UserPage extends Component {
                 </div>
                     <button>New Car</button>
                 </form>
-                {cars}
+                <CarsView user={this.state.user} 
+                deleteCar={this.deleteCar} 
+                handleChange={this.handleChange}
+                updateCar={this.updateCar}/>
             </div>
         );
     }

@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
 
   router.patch('/:id', async (req, res) => {
     try {
-    const updatedCar = req.body
+    const updatedCar = req.body.car
     const user = await User.findById(req.params.userId)
     const car = user.cars.id(req.params.id)
     car.make = updatedCar.make

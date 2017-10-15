@@ -31,6 +31,7 @@ class CarPage extends Component {
     this.setState({car: res.data})
   }
 
+
     render() {
         if (this.state.redirectBack) {
         return <Redirect to={`/user/${this.props.match.params.userName}`} />
