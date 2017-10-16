@@ -7,13 +7,15 @@ import Paper from 'material-ui/Paper';
 
 const FlexContainer = styled.div `
 display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
 `
 const style = {
     margin: 10,
     textAlign: 'center',
     backgroundColor: 'white',
     color: 'black',
-    width: '50%',
+    width: '48%',
   };
 
 class CarsView extends Component {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 const style = {
     margin: 10,
@@ -32,7 +33,7 @@ class UserView extends Component {
                             name="model"
                             type="text"/>
                 </div>
-                    <button>New Car</button>
+                <FlatButton label="New Car" primary={true} type="submit" />
                 </form>
                 </Paper>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import TextField from 'material-ui/TextField';
 
 const TaskSpan = styled.span`
   margin: 20px;
@@ -26,11 +27,10 @@ updateTask = (event) => {
 
     render() {
         return (
-        <TaskSpan>
-        <input onBlur={this.updateTask} 
+        <TextField onBlur={this.updateTask} 
         onChange={this.handleUpdateChange} 
-        name="title" value={this.props.task.title} />
-        </TaskSpan> 
+        name="title" value={this.props.task.title}
+        underlineShow={false} />
         );
     }
 }

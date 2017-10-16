@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
-
+import FlatButton from 'material-ui/FlatButton';
 
 //From https://stackoverflow.com/questions/32602151/how-can-i-make-a-fluid-text-input-using-react-which-resizes-based-on-the-conten
 //const makeSize = this.props.car.make.length + 'em'
@@ -52,18 +52,19 @@ class Car extends Component {
                  name="make" 
                  value={this.props.car.make}
                  style={{width: this.props.car.make.length + 'em', fontSize: '1.2em',}}
-                 inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', boxSizing: 'border-box'}} />
+                 inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
                 <TextField 
                 onBlur={this.updateCar} 
                 onChange={this.handleChange} 
                 name="model" 
                 value={this.props.car.model} 
                 style={{width: this.props.car.model.length + 'em', fontSize: '1.2em'}}
-                inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', boxSizing: 'border-box'}} />
+                inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
                 </div>
-                <button onClick={this.goToCar}>Go To Car</button>
-                <button onClick={() => this.props.deleteCar(this.props.car._id)}>Delete</button>
-
+                <p><span>{this.props.car.year}</span> - <span>Mileage: {this.props.car.mileage}</span></p>
+                <FlatButton label="Go To Car" onClick={this.goToCar} primary={true} type="submit" />
+                <FlatButton label="Delete" onClick={() => this.props.deleteCar(this.props.car._id)} secondary={true} />
+                <hr />
             </CarDiv>
         );
     }

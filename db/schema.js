@@ -15,8 +15,8 @@ const reportSchema = mongoose.Schema({
 })
 
 const carSchema = mongoose.Schema({
-    make: String,
-    model: String,
+    make: {type: String, required: [true, 'Please add make of Car']},
+    model: {type: String, required: [true, 'Please add model of Car']},
     mileage: Number,
     year: Number,
     tasks: [taskSchema],
@@ -24,8 +24,8 @@ const carSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
-    userName: String,
-    password: String,
+    userName: {type: String, required: [true, 'No User Name'], unique: [true, 'Username already exists']},
+    password: {type: String, required: [true, 'No password']},
     name: String,
     cars: [carSchema]
 })
