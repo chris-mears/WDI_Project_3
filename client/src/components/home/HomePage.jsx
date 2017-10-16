@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {Link, Redirect } from 'react-router-dom'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import AppBar from 'material-ui/AppBar'
+import TextField from 'material-ui/TextField'
 
 class HomePage extends Component {
     state = {
@@ -84,21 +89,23 @@ class HomePage extends Component {
         }
 
         return (
-            <div>
+            <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+                <div>
+                <AppBar title="My AppBar" />
                 <h3>Please Select an Existing User</h3>
                 {this.state.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
                 <form onSubmit={this.handleLogIn}>
                     <div>
-                        <label htmlFor="userName">User Name</label>
-                        <input
+                        <TextField
+                            hintText="User Name"
                             onChange={this.handleLogInChange}
                             name="userName"
                             type="text"
                             value={this.state.loggedUser.userName}/>
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
-                        <input
+                        <TextField
+                        hintText="Password"
                             onChange={this.handleLogInChange}
                             value={this.state.loggedUser.password}
                             name="password"
@@ -110,7 +117,7 @@ class HomePage extends Component {
                 <form onSubmit={this.handleSignUpSubmit}>
                     <div>
                         <label htmlFor="userName">User Name</label>
-                        <input
+                        <TextField
                             onChange={this.handleSignUpChange}
                             name="userName"
                             type="text"
@@ -118,7 +125,7 @@ class HomePage extends Component {
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
-                        <input
+                        <TextField
                             onChange={this.handleSignUpChange}
                             value={this.state.signUp.password}
                             name="password"
@@ -126,7 +133,7 @@ class HomePage extends Component {
                     </div>
                     <div>
                         <label htmlFor="name">Name</label>
-                        <input
+                        <TextField
                             onChange={this.handleSignUpChange}
                             value={this.state.signUp.name}
                             name="name"
@@ -134,7 +141,8 @@ class HomePage extends Component {
                     </div>
                     <button>Sign Up</button>
                 </form>
-            </div>
+                </div>
+                </MuiThemeProvider>
         );
     }
 }
