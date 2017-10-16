@@ -7,6 +7,7 @@ const NavBar = () => (
   <AppBar
     title="CarLog"
     iconElementLeft={<DrawerView />}
+    zDepth={2}
   />
 );
 

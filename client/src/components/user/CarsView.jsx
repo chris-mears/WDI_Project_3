@@ -2,12 +2,25 @@ import React, {Component} from 'react';
 import Car from './Car'
 import Tasks from './Tasks'
 import Reports from './Reports'
+import styled from 'styled-components'
+import Paper from 'material-ui/Paper';
+
+const FlexContainer = styled.div `
+display: flex;
+`
+const style = {
+    margin: 10,
+    textAlign: 'center',
+    backgroundColor: 'white',
+    color: 'black',
+    width: '50%',
+  };
 
 class CarsView extends Component {
     render() {
         const cars = this.props.user.cars.map(car => {
                     return (
-                            <div key={car._id}>
+                        <Paper style={style} zDepth={2} rounded={false} key={car._id}>
                                 <Car car={car} 
                                 user={this.props.user}
                                 deleteCar={this.props.deleteCar} 
@@ -27,13 +40,13 @@ class CarsView extends Component {
                                 createReport={this.props.createReport}
                                 handleReportChange={this.props.handleReportChange}
                                 updateReport={this.props.updateReport}/>
-                            </div>
+                            </Paper>
                         )
                 })
         return (
-                <div>
+                <FlexContainer>
                     {cars}
-                </div>
+                </FlexContainer>
         );
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import CarsView from './CarsView'
 import NavBar from '../Nav/NavBar'
+import UserView from './UserView.jsx'
 
 class UserPage extends Component {
     state={
@@ -147,26 +148,10 @@ class UserPage extends Component {
         return (
             <div>
                 <NavBar />
-                <h2>{this.state.user.name} Page</h2>
-                <form onSubmit={this.handleSubmit}>
-                <div>
-                        <label htmlFor="make">Make</label>
-                        <input
-                            onChange={this.handleNewChange}
-                            name="make"
-                            type="text"
-                            value={this.state.newCar.make}/>
-                </div>
-                <div>
-                        <label htmlFor="model">Model</label>
-                        <input
-                            onChange={this.handleNewChange}
-                            value={this.state.newCar.model}
-                            name="model"
-                            type="text"/>
-                </div>
-                    <button>New Car</button>
-                </form>
+                <UserView name={this.state.user.name}
+                handleSubmit={this.handleSubmit}
+                handleNewChange={this.handleNewChange}
+                newCar={this.state.newCar}/>
                 <CarsView user={this.state.user} 
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
