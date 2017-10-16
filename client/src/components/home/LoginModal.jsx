@@ -54,7 +54,7 @@ export default class LoginModal extends React.Component {
                 name="password"
                 type="password"/>
         </div>
-        <button>Login</button>
+        <RaisedButton label="Login" primary={true} type="submit" />
     </form>
 
     <form onSubmit={this.props.handleSignUpSubmit}>
@@ -82,7 +82,7 @@ export default class LoginModal extends React.Component {
                 name="name"
                 type="text"/>
         </div>
-        <button>Sign Up</button>
+        <RaisedButton label="Sign Up" primary={true} type="submit" />
     </form>
         </Dialog>
       </div>

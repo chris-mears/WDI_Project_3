@@ -10,7 +10,6 @@ import AppBar from 'material-ui/AppBar'
 import HomePage from './components/home/HomePage'
 import UserPage from './components/user/UserPage'
 import CarPage from './components/car/CarPage'
-import NavBar from './components/NavBar'
 
 class App extends Component {
   render() {

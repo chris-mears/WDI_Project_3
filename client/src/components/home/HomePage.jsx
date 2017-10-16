@@ -4,9 +4,16 @@ import {Link, Redirect } from 'react-router-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import AppBar from 'material-ui/AppBar'
-import TextField from 'material-ui/TextField'
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
 import LoginModal from './LoginModal'
+import LogoIcon from '../LogoIcon'
+import { Parallax } from 'react-parallax';
+import HeroContainer from './HeroContainer'
+import MainDiv from './MainDiv'
+
 
 class HomePage extends Component {
     state = {
@@ -92,64 +99,28 @@ class HomePage extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div>
-                <AppBar title="My AppBar" />
-                <LoginModal 
+                <AppBar
+                title="CarLog"
+                iconElementLeft={<LogoIcon />}
+                iconElementRight={<LoginModal 
                 loggedUser={this.state.loggedUser}
                 signUp={this.state.signUp}
                 handleLogInChange={this.handleLogInChange}
                 handleSignUpChange={this.handleSignUpChange}
                 handleLogIn={this.handleLogIn}
                 handleSignUpSubmit={this.handleSignUpSubmit}
+                />}
                 />
-                <h3>Please Select an Existing User</h3>
-                {this.state.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
-                <form onSubmit={this.handleLogIn}>
-                    <div>
-                        <TextField
-                            hintText="User Name"
-                            onChange={this.handleLogInChange}
-                            name="userName"
-                            type="text"
-                            value={this.state.loggedUser.userName}/>
-                    </div>
-                    <div>
-                        <TextField
-                        hintText="Password"
-                            onChange={this.handleLogInChange}
-                            value={this.state.loggedUser.password}
-                            name="password"
-                            type="password"/>
-                    </div>
-                    <button>Login</button>
-                </form>
-
-                <form onSubmit={this.handleSignUpSubmit}>
-                    <div>
-                        <label htmlFor="userName">User Name</label>
-                        <TextField
-                            onChange={this.handleSignUpChange}
-                            name="userName"
-                            type="text"
-                            value={this.state.signUp.userName}/>
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <TextField
-                            onChange={this.handleSignUpChange}
-                            value={this.state.signUp.password}
-                            name="password"
-                            type="password"/>
-                    </div>
-                    <div>
-                        <label htmlFor="name">Name</label>
-                        <TextField
-                            onChange={this.handleSignUpChange}
-                            value={this.state.signUp.name}
-                            name="name"
-                            type="text"/>
-                    </div>
-                    <button>Sign Up</button>
-                </form>
+                <Parallax bgImage="../../../hero.jpg" strength={400}>
+                    <HeroContainer />
+                </Parallax>
+                <MainDiv users={this.state.users}
+                loggedUser={this.state.loggedUser}
+                signUp={this.state.signUp}
+                handleLogInChange={this.handleLogInChange}
+                handleSignUpChange={this.handleSignUpChange}
+                handleLogIn={this.handleLogIn}
+                handleSignUpSubmit={this.handleSignUpSubmit}/>
                 </div>
                 </MuiThemeProvider>
         );
