@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import TextField from 'material-ui/TextField'
+import LoginModal from './LoginModal'
 
 class HomePage extends Component {
     state = {
@@ -92,6 +93,14 @@ class HomePage extends Component {
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <div>
                 <AppBar title="My AppBar" />
+                <LoginModal 
+                loggedUser={this.state.loggedUser}
+                signUp={this.state.signUp}
+                handleLogInChange={this.handleLogInChange}
+                handleSignUpChange={this.handleSignUpChange}
+                handleLogIn={this.handleLogIn}
+                handleSignUpSubmit={this.handleSignUpSubmit}
+                />
                 <h3>Please Select an Existing User</h3>
                 {this.state.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
                 <form onSubmit={this.handleLogIn}>
