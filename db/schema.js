@@ -24,7 +24,7 @@ const carSchema = mongoose.Schema({
 })
 
 const userSchema = mongoose.Schema({
-    userName: String,
+    userName: {type: String, required: true, unique: true},
     password: String,
     name: String,
     cars: [carSchema]
