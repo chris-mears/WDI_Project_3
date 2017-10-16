@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import CarsView from './CarsView'
+import NavBar from '../Nav/NavBar'
 
 class UserPage extends Component {
     state={
@@ -145,6 +146,7 @@ class UserPage extends Component {
     render() {
         return (
             <div>
+                <NavBar />
                 <h2>{this.state.user.name} Page</h2>
                 <form onSubmit={this.handleSubmit}>
                 <div>
