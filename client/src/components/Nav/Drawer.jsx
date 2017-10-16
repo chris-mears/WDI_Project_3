@@ -21,7 +21,7 @@ export default class DrawerView extends React.Component {
     return (
       <div>
         <IconButton tooltip="Menu" onClick={this.handleToggle}>
-        <FontIcon className="muidocs-icon-action-menu" />
+        <i className="material-icons">menu</i>
         </IconButton>
         <Drawer
         docked={false}
