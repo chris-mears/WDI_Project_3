@@ -21,9 +21,15 @@ class UserPage extends Component {
         make: '',
         model: ''
     },
+    carClicked: false,
     carView: {
-      carClicked: false,
-      carId: '',
+      _id: '',
+      title: '',
+      description: '',
+      year: '',
+      tasks: [],
+      reports: []
+
     }
   }
 
@@ -46,8 +52,9 @@ class UserPage extends Component {
 
   deleteCar = async (carId) => {
     try {
+    const carClicked = false;
     const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}`)
-    this.setState({user: res.data})
+    this.setState({carClicked, user: res.data})
     } catch (err) {
         console.log(err)
     }
@@ -106,12 +113,12 @@ class UserPage extends Component {
   }
   // Trigger patch when leaving an input field
   updateCar = async (userId, carId) => {
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
+    const updatedCar = {...this.state.carView}
     const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
-      car: car
+      car: updatedCar
     })
-    this.setState({user: res.data})
+    console.log(res.data)
+    //this.setState({user: res.data})
   }
 
   handleTaskChange = (event, carId, taskId) => {
@@ -153,18 +160,15 @@ class UserPage extends Component {
   }
 
   showCar = (carId) => {
-    if(carId === this.state.carView.carId) {
-      const carView = {
-        carClicked: !this.state.carView.carClicked,
-        carId: carId,
-      }
-      this.setState({carView})
+    if(carId === this.state.carView._id) {
+      const carClicked = !this.state.carClicked
+      const carToShow = this.state.user.cars.find(i => i._id === carId)
+
+      this.setState({carClicked, carView: carToShow})
     } else {
-      const carView = {
-        carClicked: true,
-        carId: carId,
-      }
-      this.setState({carView})
+      const carClicked = true
+      const carToShow = this.state.user.cars.find(i => i._id === carId)
+      this.setState({carClicked, carView: carToShow})
     }
     
   }
@@ -179,9 +183,9 @@ class UserPage extends Component {
                 newCar={this.state.newCar} 
                 showCar={this.showCar} />
 
-                {this.state.carView.carClicked ?
+                {this.state.carClicked ?
                 <CarsView user={this.state.user}
-                carViewId={this.state.carView.carId}
+                car={this.state.carView}
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}

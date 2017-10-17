@@ -21,48 +21,27 @@ const style = {
   };
 
 class CarsView extends Component {
-    state = {
-        car: {
-            _id: '',
-           title: '',
-           mileage: '',
-           year: '',
-           tasks: [],
-           reports: []
-        }
-    }
 
-    async componentWillMount() {
-        console.log(this.props.user._id, this.props.carViewId)
-        const res = await axios.get(`/api/users/${this.props.user._id}/cars/${this.props.carViewId}`)
-        this.setState({car: res.data})
-    }
-
-    async componentWillUpdate() {
-        console.log(this.props.user._id, this.props.carViewId)
-        const res = await axios.get(`/api/users/${this.props.user._id}/cars/${this.props.carViewId}`)
-        this.setState({car: res.data})
-    }
     render() {
         return (
             <FlexContainer>
-            <Paper style={style} zDepth={2} rounded={false} key={this.state.car._id}>
+            <Paper style={style} zDepth={2} rounded={false} key={this.props.car._id}>
                     <Car 
-                    car={this.state.car} 
+                    car={this.props.car} 
                     user={this.props.user}
                     deleteCar={this.props.deleteCar} 
                     handleChange={this.props.handleChange}
                     updateCar={this.props.updateCar}/>
-                    <Tasks tasks={this.state.car.tasks} 
+                    <Tasks tasks={this.props.car.tasks} 
                     userId={this.props.user._id}
-                    carId={this.state.car._id}
+                    carId={this.props.car._id}
                     deleteTask={this.props.deleteTask}
                     createTask={this.props.createTask}
                     handleTaskChange={this.props.handleTaskChange}
                     updateTask={this.props.updateTask}/>
-                    <Reports reports={this.state.car.reports}
+                    <Reports reports={this.props.car.reports}
                     userId={this.props.user._id}
-                    carId={this.state.car._id}
+                    carId={this.props.car._id}
                     deleteReport={this.props.deleteReport}
                     createReport={this.props.createReport}
                     handleReportChange={this.props.handleReportChange}
