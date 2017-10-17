@@ -13,6 +13,8 @@ class MainDiv extends Component {
         return (
             <MainContainer>
                 <br/>
+                <div><h2>Welcome to CarLog</h2> 
+                    <p>An app to track the health of your car because nobody will care for your care as much as you!</p></div>
                     <h3>Please Select an Existing User</h3>
                     {this.props.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
                     <LoginModal 
