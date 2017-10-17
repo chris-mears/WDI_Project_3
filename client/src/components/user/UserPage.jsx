@@ -3,6 +3,12 @@ import axios from 'axios'
 import CarsView from './CarsView'
 import NavBar from '../Nav/NavBar'
 import UserView from './UserView.jsx'
+import styled from 'styled-components'
+
+const PageContainer = styled.div `
+background: #c0c0c0 no-repeat center center fixed;
+background-size: cover; 
+`
 
 class UserPage extends Component {
     state={
@@ -146,7 +152,7 @@ class UserPage extends Component {
 
     render() {
         return (
-            <div>
+            <PageContainer>
                 <NavBar />
                 <UserView name={this.state.user.name}
                 handleSubmit={this.handleSubmit}
@@ -164,7 +170,7 @@ class UserPage extends Component {
                 handleReportChange={this.handleReportChange}
                 updateTask={this.updateTask}
                 updateReport={this.updateReport}/>
-            </div>
+            </PageContainer>
         );
     }
 }
