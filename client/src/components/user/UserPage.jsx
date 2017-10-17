@@ -180,7 +180,8 @@ class UserPage extends Component {
                 showCar={this.showCar} />
 
                 {this.state.carView.carClicked ?
-                <CarsView user={this.state.user} 
+                <CarsView user={this.state.user}
+                carViewId={this.state.carView.carId}
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}

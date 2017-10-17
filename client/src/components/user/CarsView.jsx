@@ -24,7 +24,8 @@ class CarsView extends Component {
         const cars = this.props.user.cars.map(car => {
                     return (
                         <Paper style={style} zDepth={2} rounded={false} key={car._id}>
-                                <Car car={car} 
+                                <Car 
+                                car={car} 
                                 user={this.props.user}
                                 deleteCar={this.props.deleteCar} 
                                 handleChange={this.props.handleChange}
