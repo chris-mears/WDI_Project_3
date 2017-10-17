@@ -21,26 +21,7 @@ class UserView extends Component {
                 label="New Car" 
                 primary={true} 
                 onClick={this.props.handleSubmit} />
-                <CarsAvatar cars={this.props.user.cars} />
-                {/* <form onSubmit={this.props.handleSubmit}>
-                <div>
-                        <TextField
-                            hintText="Make"
-                            onChange={this.props.handleNewChange}
-                            name="make"
-                            type="text"
-                            value={this.props.newCar.make}/>
-                </div>
-                <div>
-                            <TextField
-                            hintText="Make"
-                            onChange={this.props.handleNewChange}
-                            value={this.props.newCar.model}
-                            name="model"
-                            type="text"/>
-                </div>
-                <FlatButton label="New Car" primary={true} type="submit" />
-                </form> */}
+                <CarsAvatar cars={this.props.user.cars} showCar={this.props.showCar} />
                 </Paper>
             </div>
         );

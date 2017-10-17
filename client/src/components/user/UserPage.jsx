@@ -20,6 +20,10 @@ class UserPage extends Component {
     newCar: {
         make: '',
         model: ''
+    },
+    carView: {
+      carClicked: false,
+      carId: '',
     }
   }
 
@@ -148,6 +152,23 @@ class UserPage extends Component {
     this.setState({user: res.data})
   }
 
+  showCar = (carId) => {
+    if(carId === this.state.carView.carId) {
+      const carView = {
+        carClicked: !this.state.carView.carClicked,
+        carId: carId,
+      }
+      this.setState({carView})
+    } else {
+      const carView = {
+        carClicked: true,
+        carId: carId,
+      }
+      this.setState({carView})
+    }
+    
+  }
+
     render() {
         return (
             <PageContainer>
@@ -155,7 +176,10 @@ class UserPage extends Component {
                 <UserView user={this.state.user}
                 handleSubmit={this.handleSubmit}
                 handleNewChange={this.handleNewChange}
-                newCar={this.state.newCar}/>
+                newCar={this.state.newCar} 
+                showCar={this.showCar} />
+
+                {this.state.carView.carClicked ?
                 <CarsView user={this.state.user} 
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
@@ -167,7 +191,7 @@ class UserPage extends Component {
                 handleTaskChange={this.handleTaskChange}
                 handleReportChange={this.handleReportChange}
                 updateTask={this.updateTask}
-                updateReport={this.updateReport}/>
+                updateReport={this.updateReport}/> : ''}
             </PageContainer>
         );
     }

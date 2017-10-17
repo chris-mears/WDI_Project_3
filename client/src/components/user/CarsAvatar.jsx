@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import Paper from 'material-ui/Paper';
 import {cyan500} from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
 
 const style = {
     margin: '10px',
@@ -28,6 +29,9 @@ class CarsAvatar extends Component {
                 <Paper style={style} zDepth={2} rounded={true} key={car._id}>
                     <h4>{car.title}</h4>
                     <Logo src="../../../carlog-inverted.png" alt="Carlog" />
+                    <FlatButton 
+                label="Show Car" 
+                onClick={() => this.props.showCar(car._id)} />
                 </Paper>
             )})
         return (
