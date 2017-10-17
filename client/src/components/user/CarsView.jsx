@@ -15,7 +15,8 @@ const style = {
     textAlign: 'center',
     backgroundColor: 'white',
     color: 'black',
-    width: '48%',
+    width: '100%',
+    minWidth: '48%',
   };
 
 class CarsView extends Component {

@@ -2,50 +2,37 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
-import Visibility from 'material-ui/svg-icons/action/visibility';
-import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
+// import ActionFavorite from 'material-ui/svg-icons/action/favorite';
+// import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
+// import Visibility from 'material-ui/svg-icons/action/visibility';
+// import VisibilityOff from 'material-ui/svg-icons/action/visibility-off';
 import IconButton from 'material-ui/IconButton';
 
 const styles = {
     block: {
       maxWidth: 50,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     checkbox: {
       marginBottom: 16,
     },
-        smallIcon: {
-          width: 36,
-          height: 36,
-        },
         mediumIcon: {
           width: 48,
           height: 48,
-        },
-        largeIcon: {
-          width: 60,
-          height: 60,
         },
         small: {
           width: 72,
           height: 50,
           padding: 0,
-        },
-        medium: {
-          width: 96,
-          height: 96,
-          padding: 24,
-        },
-        large: {
-          width: 120,
-          height: 120,
-          padding: 30,
         }
   };
 
 const TaskContainer = styled.div `
     display: flex;
+    height: 30px;
+    
 `
 
 class Task extends Component {
@@ -71,6 +58,7 @@ updateTask = (event) => {
 
     render() {
         return (
+        <div>
         <TaskContainer>
         <div style={styles.block}>
         <Checkbox
@@ -89,6 +77,8 @@ updateTask = (event) => {
       <i className="material-icons">delete</i>
     </IconButton>
         </TaskContainer>
+          <hr />
+        </div> 
         );
     }
 }

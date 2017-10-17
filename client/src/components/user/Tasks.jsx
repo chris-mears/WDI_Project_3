@@ -9,6 +9,12 @@ import {
     TableRowColumn
 } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components'
+
+
+const TasksContainer = styled.div   `
+margin: 20px;
+`
 
 class Tasks extends Component {
     state = {
@@ -26,20 +32,21 @@ class Tasks extends Component {
         this.setState({newTask: clonedTask})
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        this
-            .props
-            .createTask(this.props.carId, this.state.newTask)
-        const resetTask = {
-            title: ''
-        }
-        this.setState({newTask: resetTask})
 
+    handleKeyPress = (event) => {
+        if(event.charCode==13){
+            event.preventDefault()
+            this.props.createTask(this.props.carId, this.state.newTask)
+            const resetTask = {
+                title: ''
+            }
+            this.setState({newTask: resetTask}) 
+        }
     }
+
     render() {
         return (
-            <div>
+            <TasksContainer>
                 <h4>Tasks:</h4>
 
                 <TextField
@@ -48,7 +55,7 @@ class Tasks extends Component {
                     name="title"
                     type="text"
                     value={this.state.newTask.title}
-                    onBlur={this.handleSubmit}/>
+                    onKeyPress={this.handleKeyPress}/>
                 <div>
                 {this.props.tasks.map((task) => {
                     return (
@@ -63,7 +70,7 @@ class Tasks extends Component {
                                 )
                             })}
                 </div>
-            </div>
+            </TasksContainer>
         );
     }
 }
