@@ -36,7 +36,7 @@ class Car extends Component {
                  onChange={this.handleChange}
                  name="year" 
                  value={this.props.car.year}
-                 style={{width: this.props.car.year.length + 'em', fontSize: '1.2em',}}
+                 style={{width: String(this.props.car.year).length + 'em', fontSize: '1.2em',}}
                  inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
                   - Mileage: 
                 <TextField
