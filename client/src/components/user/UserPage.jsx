@@ -21,7 +21,10 @@ class UserPage extends Component {
         make: '',
         model: ''
     },
-    carClicked: false,
+    showCar: {
+      carClicked: false,
+      cardId: '',
+    },
     carView: {
       _id: '',
       title: '',
@@ -33,13 +36,17 @@ class UserPage extends Component {
     }
   }
 
-  handleNewChange = (event) => {
-    const attribute = event.target.name
-    const updateCar = {...this.state.newCar}
-    updateCar[attribute] = event.target.value
-    this.setState({newCar: updateCar})
+  async componentWillMount() {
+    const { userName } = this.props.match.params
+    const res = await axios.get(`/api/users/${userName}`)
+    this.setState({user: res.data})
   }
 
+  updateCarView = (carId) => {
+    return this.state.user.cars.find(i => i._id === carId)
+  }
+
+  //Function to create new car object
   handleSubmit = async (event) => {
     event.preventDefault()
     try {
@@ -50,29 +57,39 @@ class UserPage extends Component {
     }
   }
 
+
+  //Function to delete car from user
   deleteCar = async (carId) => {
     try {
     const carClicked = false;
     const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}`)
     this.setState({carClicked, user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
     }
   }
 
+  //Delete task from car and user
   deleteTask = async (carId, taskId) => {
     try {
     const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`)
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
     }
   }
 
+  //Delete task from car and user
   deleteReport = async (carId, reportId) => {
     try {
     const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`)
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
     }
@@ -82,6 +99,8 @@ class UserPage extends Component {
     try {
     const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/reports/`)
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
     }
@@ -93,16 +112,13 @@ class UserPage extends Component {
       task: newTask
     })
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
     }
   }
 
-  async componentWillMount() {
-    const { userName } = this.props.match.params
-    const res = await axios.get(`/api/users/${userName}`)
-    this.setState({user: res.data})
-  }
 
   handleChange = (event, carId) => {
     const attribute = event.target.name
@@ -117,8 +133,9 @@ class UserPage extends Component {
     const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
       car: updatedCar
     })
-    console.log(res.data)
-    //this.setState({user: res.data})
+    this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
   }
 
   handleTaskChange = (event, carId, taskId) => {
@@ -138,6 +155,8 @@ class UserPage extends Component {
       task: task
     })
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
   }
 
   handleReportChange = (event, carId, reportId) => {
@@ -157,17 +176,19 @@ class UserPage extends Component {
       report: report
     })
     this.setState({user: res.data})
+    const carToShow = this.updateCarView(carId)
+    this.setState({carView: carToShow })
   }
 
   showCar = (carId) => {
     if(carId === this.state.carView._id) {
       const carClicked = !this.state.carClicked
-      const carToShow = this.state.user.cars.find(i => i._id === carId)
+      const carToShow = this.updateCarView(carId)
 
       this.setState({carClicked, carView: carToShow})
     } else {
       const carClicked = true
-      const carToShow = this.state.user.cars.find(i => i._id === carId)
+      const carToShow = this.updateCarView(carId)
       this.setState({carClicked, carView: carToShow})
     }
     
