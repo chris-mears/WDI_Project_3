@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import CarsView from './CarsView'
+import NavBar from '../Nav/NavBar'
+import UserView from './UserView.jsx'
+import styled from 'styled-components'
+
+const PageContainer = styled.div `
+background: #c0c0c0 no-repeat center center fixed;
+background-size: cover; 
+`
 
 class UserPage extends Component {
     state={
@@ -12,6 +20,10 @@ class UserPage extends Component {
     newCar: {
         make: '',
         model: ''
+    },
+    carView: {
+      carClicked: false,
+      carId: '',
     }
   }
 
@@ -25,9 +37,7 @@ class UserPage extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     try {
-    const res = await axios.post(`/api/users/${this.state.user._id}/cars`, {
-      'car': this.state.newCar
-    })
+    const res = await axios.post(`/api/users/${this.state.user._id}/cars`)
     this.setState({user: res.data})
     } catch (err) {
         console.log(err)
@@ -142,30 +152,36 @@ class UserPage extends Component {
     this.setState({user: res.data})
   }
 
+  showCar = (carId) => {
+    if(carId === this.state.carView.carId) {
+      const carView = {
+        carClicked: !this.state.carView.carClicked,
+        carId: carId,
+      }
+      this.setState({carView})
+    } else {
+      const carView = {
+        carClicked: true,
+        carId: carId,
+      }
+      this.setState({carView})
+    }
+    
+  }
+
     render() {
         return (
-            <div>
-                <h2>{this.state.user.name} Page</h2>
-                <form onSubmit={this.handleSubmit}>
-                <div>
-                        <label htmlFor="make">Make</label>
-                        <input
-                            onChange={this.handleNewChange}
-                            name="make"
-                            type="text"
-                            value={this.state.newCar.make}/>
-                </div>
-                <div>
-                        <label htmlFor="model">Model</label>
-                        <input
-                            onChange={this.handleNewChange}
-                            value={this.state.newCar.model}
-                            name="model"
-                            type="text"/>
-                </div>
-                    <button>New Car</button>
-                </form>
-                <CarsView user={this.state.user} 
+            <PageContainer>
+                <NavBar />
+                <UserView user={this.state.user}
+                handleSubmit={this.handleSubmit}
+                handleNewChange={this.handleNewChange}
+                newCar={this.state.newCar} 
+                showCar={this.showCar} />
+
+                {this.state.carView.carClicked ?
+                <CarsView user={this.state.user}
+                carViewId={this.state.carView.carId}
                 deleteCar={this.deleteCar} 
                 handleChange={this.handleChange}
                 updateCar={this.updateCar}
@@ -176,8 +192,8 @@ class UserPage extends Component {
                 handleTaskChange={this.handleTaskChange}
                 handleReportChange={this.handleReportChange}
                 updateTask={this.updateTask}
-                updateReport={this.updateReport}/>
-            </div>
+                updateReport={this.updateReport}/> : ''}
+            </PageContainer>
         );
     }
 }

@@ -14,13 +14,13 @@ import CarPage from './components/car/CarPage'
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider  muiTheme={getMuiTheme(darkBaseTheme)}>
+      <MuiThemeProvider>
         <Router>
           <div>
           <Switch>
                 <Route exact path='/' component={HomePage} />
                 <Route exact path='/user/:userName' component={UserPage} />
-                <Route exact path='/:userName/:carName' component={CarPage} />
+                <Route exact path='/user/:userName/:carName' component={CarPage} />
           </Switch> 
           </div> 
         </Router>  

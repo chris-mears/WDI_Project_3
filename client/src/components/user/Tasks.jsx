@@ -1,5 +1,20 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Task from './Task'
+import {
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn
+} from 'material-ui/Table';
+import TextField from 'material-ui/TextField';
+import styled from 'styled-components'
+
+
+const TasksContainer = styled.div   `
+margin: 20px;
+`
 
 class Tasks extends Component {
     state = {
@@ -9,41 +24,53 @@ class Tasks extends Component {
     }
 
     handleChange = (event) => {
-    const attribute = event.target.name
-    const clonedTask = {...this.state.newTask}
-    clonedTask[attribute] = event.target.value
-    this.setState({newTask: clonedTask})
-  }
+        const attribute = event.target.name
+        const clonedTask = {
+            ...this.state.newTask
+        }
+        clonedTask[attribute] = event.target.value
+        this.setState({newTask: clonedTask})
+    }
 
-  handleSubmit = (event) => {
-      event.preventDefault()
-        this.props.createTask(this.props.carId, this.state.newTask)
-  }
+
+    handleKeyPress = (event) => {
+        if(event.charCode==13){
+            event.preventDefault()
+            this.props.createTask(this.props.carId, this.state.newTask)
+            const resetTask = {
+                title: ''
+            }
+            this.setState({newTask: resetTask}) 
+        }
+    }
+
     render() {
         return (
-            <div>
+            <TasksContainer>
                 <h4>Tasks:</h4>
-                <form onSubmit={this.handleSubmit}>
-                
-                        <label htmlFor="title">Title</label>
-                        <input
-                            onChange={this.handleChange}
-                            name="title"
-                            type="text"
-                            value={this.state.newTask.title}/>
-                    <button>New Task</button>
-                </form>
-                <ul>
+
+                <TextField
+                    hintText="New Task"
+                    onChange={this.handleChange}
+                    name="title"
+                    type="text"
+                    value={this.state.newTask.title}
+                    onKeyPress={this.handleKeyPress}/>
+                <div>
                 {this.props.tasks.map((task) => {
-        return (<li key={task._id}>
-            <Task task={task} 
-            handleTaskChange={this.props.handleTaskChange} 
-            updateTask={this.props.updateTask} 
-            carId={this.props.carId} />  
-            <button onClick={() => this.props.deleteTask(this.props.carId, task._id)}>Delete</button></li>
-        )
-      })}</ul>
-            </div>
+                    return (
+                                    <div key={task._id}>
+                                            <Task
+                                                task={task}
+                                                handleTaskChange={this.props.handleTaskChange}
+                                                updateTask={this.props.updateTask}
+                                                carId={this.props.carId}
+                                                deleteTask={this.props.deleteTask}/>
+                                    </div>
+                                )
+                            })}
+                </div>
+            </TasksContainer>
         );
     }
 }
