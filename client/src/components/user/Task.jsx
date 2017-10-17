@@ -10,10 +10,7 @@ import IconButton from 'material-ui/IconButton';
 
 const styles = {
     block: {
-      maxWidth: 50,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
+      maxWidth: '50px',
     },
     checkbox: {
       marginBottom: 16,
