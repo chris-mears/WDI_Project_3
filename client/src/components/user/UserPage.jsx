@@ -33,9 +33,7 @@ class UserPage extends Component {
   handleSubmit = async (event) => {
     event.preventDefault()
     try {
-    const res = await axios.post(`/api/users/${this.state.user._id}/cars`, {
-      'car': this.state.newCar
-    })
+    const res = await axios.post(`/api/users/${this.state.user._id}/cars`)
     this.setState({user: res.data})
     } catch (err) {
         console.log(err)
@@ -154,7 +152,7 @@ class UserPage extends Component {
         return (
             <PageContainer>
                 <NavBar />
-                <UserView name={this.state.user.name}
+                <UserView user={this.state.user}
                 handleSubmit={this.handleSubmit}
                 handleNewChange={this.handleNewChange}
                 newCar={this.state.newCar}/>

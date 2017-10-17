@@ -17,7 +17,7 @@ const reportSchema = mongoose.Schema({
 const carSchema = mongoose.Schema({
     title: {type: String, default: 'New Car'},
     mileage: Number,
-    year: Number,
+    year: {type: Number, default: new Date().getFullYear()},
     tasks: [taskSchema],
     reports: [reportSchema]
 })

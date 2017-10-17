@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import CarsAvatar from './CarsAvatar'
 
 const style = {
     margin: 10,
@@ -15,8 +16,13 @@ class UserView extends Component {
         return (
             <div>
                 <Paper style={style} zDepth={2} rounded={false}>
-                <h2>{this.props.name} Page</h2>
-                <form onSubmit={this.props.handleSubmit}>
+                <h2>{this.props.user.name} Page</h2>
+                <FlatButton 
+                label="New Car" 
+                primary={true} 
+                onClick={this.props.handleSubmit} />
+                <CarsAvatar cars={this.props.user.cars} />
+                {/* <form onSubmit={this.props.handleSubmit}>
                 <div>
                         <TextField
                             hintText="Make"
@@ -34,7 +40,7 @@ class UserView extends Component {
                             type="text"/>
                 </div>
                 <FlatButton label="New Car" primary={true} type="submit" />
-                </form>
+                </form> */}
                 </Paper>
             </div>
         );
