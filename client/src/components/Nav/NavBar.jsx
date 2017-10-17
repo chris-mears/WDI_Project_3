@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
-import DrawerView from './Drawer'
 import LogoIcon from '../LogoIcon'
 
 
