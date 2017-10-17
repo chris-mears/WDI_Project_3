@@ -15,8 +15,7 @@ const reportSchema = mongoose.Schema({
 })
 
 const carSchema = mongoose.Schema({
-    make: {type: String, required: [true, 'Please add make of Car']},
-    model: {type: String, required: [true, 'Please add model of Car']},
+    title: {type: String, default: 'New Car'},
     mileage: Number,
     year: Number,
     tasks: [taskSchema],

@@ -20,8 +20,7 @@ const newTireReport = new Report({
 })
 
 const kiaForte = new Car({
-    make: 'Kia',
-    model: 'Forte',
+    title: 'Kia Forte',
     mileage: 88500,
     year: 2014,
     tasks: [oilChange, {}],

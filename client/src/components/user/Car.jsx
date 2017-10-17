@@ -27,8 +27,11 @@ class Car extends Component {
   }
     
     render() {
+        //From: http://biostall.com/removing-all-spaces-from-a-string-using-javascript/
+        const carUrl = this.props.car.title.replace(/\s/g,'')
+
         if (this.state.linkToCar) {
-        return (<Redirect to={{pathname: `/user/${this.props.user.userName}/${this.props.car.make}${this.props.car.model}`,
+        return (<Redirect to={{pathname: `/user/${this.props.user.userName}/${carUrl}`,
                                     state: { userId: this.props.user._id, 
                                              carId: this.props.car._id }
                             }} />)
@@ -39,17 +42,10 @@ class Car extends Component {
                 <TextField
                  onBlur={this.updateCar} 
                  onChange={this.handleChange}
-                 name="make" 
-                 value={this.props.car.make}
-                 style={{width: this.props.car.make.length + 'em', fontSize: '1.2em',}}
+                 name="title" 
+                 value={this.props.car.title}
+                 style={{width: this.props.car.title.length + 'em', fontSize: '1.2em',}}
                  inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
-                <TextField 
-                onBlur={this.updateCar} 
-                onChange={this.handleChange} 
-                name="model" 
-                value={this.props.car.model} 
-                style={{width: this.props.car.model.length + 'em', fontSize: '1.2em'}}
-                inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
                 </div>
                 <p><span>{this.props.car.year}</span> - <span>Mileage: {this.props.car.mileage}</span></p>
                 <FlatButton label="Go To Car" onClick={this.goToCar} primary={true} type="submit" />
