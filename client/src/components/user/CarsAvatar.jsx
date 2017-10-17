@@ -26,12 +26,9 @@ class CarsAvatar extends Component {
     render() {
         const cars = this.props.cars.map(car => {
             return (
-                <Paper style={style} zDepth={2} rounded={true} key={car._id}>
+                <Paper style={style} zDepth={2} rounded={true} key={car._id} onClick={() => this.props.showCar(car._id)} >
                     <h4>{car.title}</h4>
                     <Logo src="../../../carlog-inverted.png" alt="Carlog" />
-                    <FlatButton 
-                label="Show Car" 
-                onClick={() => this.props.showCar(car._id)} />
                 </Paper>
             )})
         return (
