@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import Report from './Report'
+import styled from 'styled-components'
+import FlatButton from 'material-ui/FlatButton';
+
+const ReportsDiv = styled.div `
+    margin: 20px;
+`
 
 class Reports extends Component {
     render() {
         return (
-            <div>
+            <ReportsDiv>
                 <h4>Service Reports:</h4>
-                <button onClick={() => this.props.createReport(this.props.carId)}>New Report</button>
-                <ul>
+                <FlatButton label="New Report" primary={true} type="submit" 
+                onClick={() => this.props.createReport(this.props.carId)} />
                 {this.props.reports.map((report) => {
-        return (<li key={report._id}>
-        <Report report={report}
+        return (
+        <Report 
+        key={report._id}
+        report={report}
         handleReportChange={this.props.handleReportChange} 
         updateReport={this.props.updateReport} 
-        carId={this.props.carId} />
-        <button onClick={() =>this.props.deleteReport(this.props.carId, report._id)}>Delete</button></li>
+        carId={this.props.carId} 
+        deleteReport={this.props.deleteReport} />
         )
-      })}</ul>
-            </div>
-        );
-    }
+      })}
+      </ReportsDiv>
+        )
+}
 }
 
 export default Reports;

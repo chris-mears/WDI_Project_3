@@ -1,36 +1,119 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import styled from 'styled-components'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import TextField from 'material-ui/TextField'
+import IconButton from 'material-ui/IconButton'
+import DatePicker from 'material-ui/DatePicker'
 
-const ReportSpan = styled.span`
+const DetailsDiv = styled.div`
   margin: 20px;
-
-  input {
-    font-weight: bold;
-  }
-  input {
-    font-size: 1.2rem;
-    border: none;
-    background-color: initial;
-  }
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `
 
+
+const styles = {
+  block: {
+    maxWidth: '50px',
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+      mediumIcon: {
+        width: 48,
+        height: 48,
+      },
+      small: {
+        width: 72,
+        height: 50,
+        padding: 0,
+      }
+};
+
 class Report extends Component {
-    handleUpdateChange = (event) => {
-        this.props.handleReportChange(event, this.props.carId, this.props.report._id)
+state = {
+      expanded: false,
+  }
+
+  handleExpandChange = (expanded) => {
+    this.setState({expanded: expanded});
+  };
+
+  handleToggle = (event, toggle) => {
+    this.setState({expanded: toggle});
+  };
+
+  handleExpand = () => {
+    this.setState({expanded: true});
+  };
+
+  handleReduce = () => {
+    this.setState({expanded: false});
+  };
+
+handleUpdateChange = (event) => {
+    this.props.handleReportChange(event, this.props.carId, this.props.report._id)
 }
 updateReport = (event) => {
     event.preventDefault()
     this.props.updateReport(this.props.carId, this.props.report._id)
 }
     render() {
-        return (
-            <ReportSpan>
-        <input onBlur={this.updateReport} 
+      const reportDate = new Date(this.props.report.date).toUTCString().substring(0, 17)
+        return (  
+        <div>
+<Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+<CardHeader
+  title={this.props.report.title}
+  subtitle={`Satisfaction: ${this.props.report.satisfaction}`}
+  actAsExpander={true}
+  showExpandableButton={true}
+/>
+<CardTitle title={<TextField onBlur={this.updateReport} 
         onChange={this.handleUpdateChange} 
-        name="title" value={this.props.report.title} />
-        </ReportSpan> 
-        );
-    }
+        name="title" value={this.props.report.title} 
+        inputStyle={{textAlign: 'center'}}/>} 
+        expandable={true} />
+<CardText expandable={true}>
+<DetailsDiv>
+<div>Date: {reportDate}</div> 
+<div>
+Location: 
+<TextField onBlur={this.updateReport} 
+        onChange={this.handleUpdateChange} 
+        name="location" value={this.props.report.location} 
+        style={{width: String(this.props.report.location).length + 'em',}}
+        inputStyle={{textAlign: 'center', minWidth: '8px'}}/> 
+</div>
+
+<div>
+Satisfaction: 
+<TextField onBlur={this.updateReport} 
+        onChange={this.handleUpdateChange} 
+        name="satisfaction" value={this.props.report.satisfaction}
+        style={{width: String(this.props.report.satisfaction).length + 'em',}} 
+        inputStyle={{textAlign: 'center', minWidth: '8px'}}/>
+</div>
+</DetailsDiv>
+<IconButton
+      iconStyle={styles.mediumIcon}
+      style={styles.small}
+      onClick={() => this.props.deleteReport(this.props.carId, this.props.report._id)}>
+      <i className="material-icons">delete</i>
+</IconButton>
+<TextField onBlur={this.updateReport} 
+        onChange={this.handleUpdateChange} 
+        name="description" value={this.props.report.description} 
+        fullWidth={true}
+        multiLine={true}/>
+</CardText>
+</Card>
+
+</div>
+
+       )
+}
 }
 
 export default Report;

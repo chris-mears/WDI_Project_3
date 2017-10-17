@@ -8,16 +8,6 @@ import FlatButton from 'material-ui/FlatButton';
 //const makeSize = this.props.car.make.length + 'em'
 const CarDiv = styled.div`
   margin: 20px;
-
-  input {
-    font-weight: bold;
-  }
-  input {
-    display: block;
-    font-size: 1.2rem;
-    border: none;
-    background-color: initial;
-  }
 `
 
 class Car extends Component {
