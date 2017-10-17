@@ -28,8 +28,8 @@ class UserPage extends Component {
     carView: {
       _id: '',
       title: '',
-      description: '',
       year: '',
+      mileage: '',
       tasks: [],
       reports: []
 
@@ -64,7 +64,14 @@ class UserPage extends Component {
     const carClicked = false;
     const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}`)
     this.setState({carClicked, user: res.data})
-    const carToShow = this.updateCarView(carId)
+    const carToShow = {
+      _id: '',
+      title: '',
+      year: '',
+      mileage: '',
+      tasks: [],
+      reports: []
+    }
     this.setState({carView: carToShow })
     } catch (err) {
         console.log(err)
