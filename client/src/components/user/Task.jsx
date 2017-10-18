@@ -58,12 +58,20 @@ updateTask = (event) => {
         <div>
         <TaskContainer>
         <div style={styles.block}>
+        {this.props.task.completed ?
         <Checkbox
           style={styles.checkbox}
           name="completed"
           value={!this.props.task.completed}
           onClick={this.handleUpdateChange}
-        />
+         checked={true}
+        /> :
+        <Checkbox
+          style={styles.checkbox}
+          name="completed"
+          value={!this.props.task.completed}
+          onClick={this.handleUpdateChange}
+        /> }
         </div>
         <TextField onBlur={this.updateTask} 
         onChange={this.handleUpdateChange} 
