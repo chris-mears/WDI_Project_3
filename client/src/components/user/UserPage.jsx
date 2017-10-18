@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios'
 import CarsView from './CarsView'
 import NavBar from '../Nav/NavBar'
@@ -11,19 +11,19 @@ background-size: cover;
 `
 
 class UserPage extends Component {
-    state={
+  state = {
     user: {
-        userName: '',
-        name: '',
-        cars: []
+      userName: '',
+      name: '',
+      cars: []
     },
     newCar: {
-        make: '',
-        model: ''
+      make: '',
+      model: ''
     },
     showCar: {
       carClicked: false,
-      cardId: '',
+      cardId: ''
     },
     carView: {
       _id: '',
@@ -35,163 +35,191 @@ class UserPage extends Component {
 
     }
   }
-
+  //when componenet mount get user and setstate of user
   async componentWillMount() {
-    const { userName } = this.props.match.params
+    const {userName} = this.props.match.params
     const res = await axios.get(`/api/users/${userName}`)
     this.setState({user: res.data})
   }
-
+  //functionality to change state of carView
   updateCarView = (carId) => {
-    return this.state.user.cars.find(i => i._id === carId)
+    return this
+      .state
+      .user
+      .cars
+      .find(i => i._id === carId)
   }
 
   //Function to create new car object
-  handleSubmit = async (event) => {
+  handleSubmit = async(event) => {
     event.preventDefault()
     try {
-    const res = await axios.post(`/api/users/${this.state.user._id}/cars`)
-    this.setState({user: res.data})
+      const res = await axios.post(`/api/users/${this.state.user._id}/cars`)
+      this.setState({user: res.data})
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
-
 
   //Function to delete car from user
-  deleteCar = async (carId) => {
+  deleteCar = async(carId) => {
     try {
-    const carClicked = false;
-    const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}`)
-    this.setState({carClicked, user: res.data})
-    const carToShow = {
-      _id: '',
-      title: '',
-      year: '',
-      mileage: '',
-      tasks: [],
-      reports: []
-    }
-    this.setState({carView: carToShow })
+      const carClicked = false;
+      const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}`)
+      this.setState({carClicked, user: res.data})
+      const carToShow = {
+        _id: '',
+        title: '',
+        year: '',
+        mileage: '',
+        tasks: [],
+        reports: []
+      }
+      this.setState({carView: carToShow})
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
 
   //Delete task from car and user
-  deleteTask = async (carId, taskId) => {
+  deleteTask = async(carId, taskId) => {
     try {
-    const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`)
-    this.setState({user: res.data})
-    const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+      const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`)
+      this.setState({user: res.data})
+      const carToShow = this.updateCarView(carId)
+      this.setState({carView: carToShow})
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
 
   //Delete task from car and user
-  deleteReport = async (carId, reportId) => {
+  deleteReport = async(carId, reportId) => {
     try {
-    const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`)
-    this.setState({user: res.data})
-    const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+      const res = await axios.delete(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`)
+      this.setState({user: res.data})
+      const carToShow = this.updateCarView(carId)
+      this.setState({carView: carToShow})
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
-  
-  createReport = async (carId) => {
+  //Create report for car
+  createReport = async(carId) => {
     try {
-    const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/reports/`)
-    this.setState({user: res.data})
-    const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+      const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/reports/`)
+      this.setState({user: res.data})
+      const carToShow = this.updateCarView(carId)
+      this.setState({carView: carToShow})
     } catch (err) {
-        console.log(err)
+      console.log(err)
+    }
+  }
+  //Create task for car
+  createTask = async(carId, newTask) => {
+    try {
+      const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/tasks/`, {task: newTask})
+      this.setState({user: res.data})
+      const carToShow = this.updateCarView(carId)
+      this.setState({carView: carToShow})
+    } catch (err) {
+      console.log(err)
     }
   }
 
-  createTask = async (carId, newTask) => {
-    try { 
-    const res = await axios.post(`/api/users/${this.state.user._id}/cars/${carId}/tasks/`, {
-      task: newTask
-    })
-    this.setState({user: res.data})
-    const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
-    } catch (err) {
-        console.log(err)
-    }
-  }
-
-
+  //updates car info in state as user updates fields
   handleChange = (event, carId) => {
     const attribute = event.target.name
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
+    const clonedUser = {
+      ...this.state.user
+    }
+    const car = clonedUser
+      .cars
+      .find(i => i._id === carId)
     car[attribute] = event.target.value
     this.setState({user: clonedUser})
   }
   // Trigger patch when leaving an input field
-  updateCar = async (userId, carId) => {
-    const updatedCar = {...this.state.carView}
-    const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {
-      car: updatedCar
-    })
+  updateCar = async(userId, carId) => {
+    const updatedCar = {
+      ...this.state.carView
+    }
+    const res = await axios.patch(`/api/users/${userId}/cars/${carId}`, {car: updatedCar})
     this.setState({user: res.data})
     const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+    this.setState({carView: carToShow})
   }
-
+  //updates task in state as user types in form
   handleTaskChange = (event, carId, taskId) => {
     const attribute = event.target.name
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
-    const task = car.tasks.find(i => i._id === taskId)
+    const clonedUser = {
+      ...this.state.user
+    }
+    const car = clonedUser
+      .cars
+      .find(i => i._id === carId)
+    const task = car
+      .tasks
+      .find(i => i._id === taskId)
     task[attribute] = event.target.value
     this.setState({user: clonedUser})
-    if(attribute === "completed") {
+    if (attribute === "completed") {
       this.updateTask(carId, taskId)
     }
   }
-
-  updateTask = async (carId, taskId) => {
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
-    const task = car.tasks.find(i => i._id === taskId)
-    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`, {
-      task: task
-    })
+  //updates task in db when user leaves field
+  updateTask = async(carId, taskId) => {
+    const clonedUser = {
+      ...this.state.user
+    }
+    const car = clonedUser
+      .cars
+      .find(i => i._id === carId)
+    const task = car
+      .tasks
+      .find(i => i._id === taskId)
+    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/tasks/${taskId}`, {task: task})
     this.setState({user: res.data})
     const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+    this.setState({carView: carToShow})
   }
 
+  //updates report in state when user types into input
   handleReportChange = (event, carId, reportId) => {
     const attribute = event.target.name
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
-    const report = car.reports.find(i => i._id === reportId)
+    const clonedUser = {
+      ...this.state.user
+    }
+    const car = clonedUser
+      .cars
+      .find(i => i._id === carId)
+    const report = car
+      .reports
+      .find(i => i._id === reportId)
     report[attribute] = event.target.value
     this.setState({user: clonedUser})
   }
 
-  updateReport = async (carId, reportId) => {
-    const clonedUser = {...this.state.user}
-    const car = clonedUser.cars.find(i => i._id === carId)
-    const report = car.reports.find(i => i._id === reportId)
-    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`, {
-      report: report
-    })
+  //updates report in db when user leave field
+  updateReport = async(carId, reportId) => {
+    const clonedUser = {
+      ...this.state.user
+    }
+    const car = clonedUser
+      .cars
+      .find(i => i._id === carId)
+    const report = car
+      .reports
+      .find(i => i._id === reportId)
+    const res = await axios.patch(`/api/users/${this.state.user._id}/cars/${carId}/reports/${reportId}`, {report: report})
     this.setState({user: res.data})
     const carToShow = this.updateCarView(carId)
-    this.setState({carView: carToShow })
+    this.setState({carView: carToShow})
   }
 
+  //updates state of carView and shows car section
   showCar = (carId) => {
-    if(carId === this.state.carView._id) {
+    if (carId === this.state.carView._id) {
       const carClicked = !this.state.carClicked
       const carToShow = this.updateCarView(carId)
 
@@ -201,36 +229,37 @@ class UserPage extends Component {
       const carToShow = this.updateCarView(carId)
       this.setState({carClicked, carView: carToShow})
     }
-    
+
   }
 
-    render() {
-        return (
-            <PageContainer>
-                <NavBar />
-                <UserView user={this.state.user}
-                handleSubmit={this.handleSubmit}
-                handleNewChange={this.handleNewChange}
-                newCar={this.state.newCar} 
-                showCar={this.showCar} />
-
-                {this.state.carClicked ?
-                <CarsView user={this.state.user}
-                car={this.state.carView}
-                deleteCar={this.deleteCar} 
-                handleChange={this.handleChange}
-                updateCar={this.updateCar}
-                deleteTask={this.deleteTask}
-                deleteReport={this.deleteReport}
-                createReport={this.createReport}
-                createTask={this.createTask}
-                handleTaskChange={this.handleTaskChange}
-                handleReportChange={this.handleReportChange}
-                updateTask={this.updateTask}
-                updateReport={this.updateReport}/> : ''}
-            </PageContainer>
-        );
-    }
+  render() {
+    return (
+      <PageContainer>
+        <NavBar/>
+        <UserView
+          user={this.state.user}
+          handleSubmit={this.handleSubmit}
+          handleNewChange={this.handleNewChange}
+          newCar={this.state.newCar}
+          showCar={this.showCar}/> {this.state.carClicked
+          ? <CarsView
+              user={this.state.user}
+              car={this.state.carView}
+              deleteCar={this.deleteCar}
+              handleChange={this.handleChange}
+              updateCar={this.updateCar}
+              deleteTask={this.deleteTask}
+              deleteReport={this.deleteReport}
+              createReport={this.createReport}
+              createTask={this.createTask}
+              handleTaskChange={this.handleTaskChange}
+              handleReportChange={this.handleReportChange}
+              updateTask={this.updateTask}
+              updateReport={this.updateReport}/>
+          : ''}
+      </PageContainer>
+    );
+  }
 }
 
 export default UserPage;

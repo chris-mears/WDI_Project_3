@@ -4,8 +4,7 @@ import TextField from 'material-ui/TextField';
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
 
-
-const TasksContainer = styled.div   `
+const TasksContainer = styled.div `
 margin: 20px;
 `
 
@@ -15,7 +14,7 @@ class Tasks extends Component {
             title: ''
         }
     }
-
+    //handles input change
     handleChange = (event) => {
         const attribute = event.target.name
         const clonedTask = {
@@ -25,15 +24,17 @@ class Tasks extends Component {
         this.setState({newTask: clonedTask})
     }
 
-
+    //creates new item on enter
     handleKeyPress = (event) => {
-        if(event.charCode === 13){
+        if (event.charCode === 13) {
             event.preventDefault()
-            this.props.createTask(this.props.carId, this.state.newTask)
+            this
+                .props
+                .createTask(this.props.carId, this.state.newTask)
             const resetTask = {
                 title: ''
             }
-            this.setState({newTask: resetTask}) 
+            this.setState({newTask: resetTask})
         }
     }
 
@@ -50,22 +51,29 @@ class Tasks extends Component {
                     value={this.state.newTask.title}
                     onKeyPress={this.handleKeyPress}
                     data-tip="Click Enter to Save"
-                    data-offset="{'top': 20}"
-                    />
-                    <ReactTooltip place='bottom' effect='solid' delayShow={1000} event='click' eventOff="blur" />
+                    data-offset={'top' : 20}/>
+                <ReactTooltip
+                    place='bottom'
+                    effect='solid'
+                    delayShow={1000}
+                    event='click'
+                    eventOff="blur"/>
                 <div>
-                {this.props.tasks.map((task) => {
-                    return (
-                                    <div key={task._id}>
-                                            <Task
-                                                task={task}
-                                                handleTaskChange={this.props.handleTaskChange}
-                                                updateTask={this.props.updateTask}
-                                                carId={this.props.carId}
-                                                deleteTask={this.props.deleteTask}/>
-                                    </div>
-                                )
-                            })}
+                    {this
+                        .props
+                        .tasks
+                        .map((task) => {
+                            return (
+                                <div key={task._id}>
+                                    <Task
+                                        task={task}
+                                        handleTaskChange={this.props.handleTaskChange}
+                                        updateTask={this.props.updateTask}
+                                        carId={this.props.carId}
+                                        deleteTask={this.props.deleteTask}/>
+                                </div>
+                            )
+                        })}
                 </div>
 
             </TasksContainer>

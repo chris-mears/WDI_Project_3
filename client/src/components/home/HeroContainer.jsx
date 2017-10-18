@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components'
 
 const HeroDiv = styled.div `
@@ -23,13 +23,12 @@ img {
 }
 `
 
-
 class HeroContainer extends Component {
     render() {
         return (
             <HeroDiv>
                 <h2>Welcome to CarLog</h2>
-                <img src="../../../carlog.png" alt="logo" /> 
+                <img src="../../../carlog.png" alt="logo"/>
             </HeroDiv>
         );
     }
