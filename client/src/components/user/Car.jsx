@@ -30,7 +30,7 @@ class Car extends Component {
                  style={{width: this.props.car.title.length + 'em', fontSize: '1.2em',}}
                  inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} />
                 </div>
-                <p>
+                <div>
                 <TextField
                  onBlur={this.updateCar} 
                  onChange={this.handleChange}
@@ -47,7 +47,7 @@ class Car extends Component {
                  style={{width: String(this.props.car.mileage).length + 'em', fontSize: '1.2em',}}
                  inputStyle={{textAlign: 'center', minWidth: '8px', padding: '1px', fontWeight: 'bolder', boxSizing: 'border-box'}} /><br />
                 <FlatButton label="Delete" onClick={() => this.props.deleteCar(this.props.car._id)} secondary={true} />
-                </p>
+                </div>
                 <hr />
             </CarDiv>
         );

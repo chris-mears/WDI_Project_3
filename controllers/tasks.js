@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
     const task = car.tasks.id(req.params.id)
     task.title = updatedTask.title
     task.description = updatedTask.description
-    task.progress = updatedTask.progress
+    task.completed = updatedTask.completed
     const saved = await user.save()
     res.json(saved)
     } 

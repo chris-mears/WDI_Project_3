@@ -152,6 +152,9 @@ class UserPage extends Component {
     const task = car.tasks.find(i => i._id === taskId)
     task[attribute] = event.target.value
     this.setState({user: clonedUser})
+    if(attribute === "completed") {
+      this.updateTask(carId, taskId)
+    }
   }
 
   updateTask = async (carId, taskId) => {
