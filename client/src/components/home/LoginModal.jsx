@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField'
+import Snackbar from 'material-ui/Snackbar';
 
 
 export default class LoginModal extends React.Component {
@@ -18,7 +19,12 @@ export default class LoginModal extends React.Component {
     this.setState({open: false});
   };
 
+
+
+
+
   render() {
+
     const actions = [
       <FlatButton
         label="GO Back"
@@ -44,7 +50,7 @@ export default class LoginModal extends React.Component {
                 onChange={this.props.handleLogInChange}
                 name="userName"
                 type="text"
-                value={this.props.loggedUser.userName}/>
+                value={this.props.loggedUser.userName} />
         </div>
         <div>
             <TextField
@@ -55,6 +61,14 @@ export default class LoginModal extends React.Component {
                 type="password"/>
         </div>
         <RaisedButton label="Login" primary={true} type="submit" />
+        <Snackbar
+        open={this.props.loginError}
+        message="Username or Password are incorrect"
+        autoHideDuration={4000}
+        onRequestClose={this.props.handleRequestClose}
+        bodyStyle={{backgroundColor: "#202020"}}
+        contentStyle={{color: "red"}}
+      />
     </form>
 
     <form onSubmit={this.props.handleSignUpSubmit}>
@@ -83,6 +97,14 @@ export default class LoginModal extends React.Component {
                 type="text"/>
         </div>
         <RaisedButton label="Sign Up" primary={true} type="submit" />
+        <Snackbar
+        open={this.props.signupError}
+        message="Username already exists"
+        autoHideDuration={4000}
+        onRequestClose={this.props.handleRequestClose}
+        bodyStyle={{backgroundColor: "#202020"}}
+        contentStyle={{color: "red"}}
+      />
     </form>
         </Dialog>
       </div>

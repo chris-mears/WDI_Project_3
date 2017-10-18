@@ -24,6 +24,10 @@ class MainDiv extends Component {
                 handleSignUpChange={this.props.handleSignUpChange}
                 handleLogIn={this.props.handleLogIn}
                 handleSignUpSubmit={this.props.handleSignUpSubmit}
+                user={this.props.user}
+                loginError={this.props.loginError}
+                signupError={this.props.signupError}
+                handleRequestClose={this.props.handleRequestClose}
                 />
             </MainContainer>
         );

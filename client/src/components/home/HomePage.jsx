@@ -25,7 +25,9 @@ class HomePage extends Component {
             password: '',
             name: ''
         },
-        redirectToUser: false
+        redirectToUser: false,
+        loginError: false,
+        signupError: false,
     }
 
     // Call the getAllUsers method as soon as the component is created
@@ -39,7 +41,7 @@ class HomePage extends Component {
             const res = await axios.get('/api/users')
             this.setState({users: res.data})
         } catch (err) {
-            console.log(err)
+            this.setState({error: err})
         }
     }
 
@@ -64,11 +66,13 @@ class HomePage extends Component {
       'user': this.state.loggedUser
     })
     this.setState({user: res.data})
+    } catch (err) {
+        this.setState({error: err})
+    }
     if (this.state.user !== null) {
         this.setState({redirectToUser: true})
-    }
-    } catch (err) {
-        console.log(err)
+    } else {
+        this.handleLoginError()
     }
   }
 
@@ -79,14 +83,38 @@ class HomePage extends Component {
       'user': this.state.signUp
     })
     this.setState({user: res.data})
-    console.log()
-    if (this.state.user !== null) {
-        this.setState({redirectToUser: true})
-    }
     } catch (err) {
         console.log(err)
     }
+    if (this.state.user.code !== undefined) {
+        //this.setState({redirectToUser: true})
+    } else {
+        this.handleSignUpError()
+    }
   }
+
+  handleLoginError = () => {
+    if(this.props.user == null) { 
+    this.setState({
+        loginError: true,
+      })
+    }
+ }
+
+ handleSignUpError = () => {
+    if(this.props.user == null) { 
+    this.setState({
+        signupError: true,
+      })
+    }
+ }
+
+  handleRequestClose = () => {
+    this.setState({
+      loginError: false,
+      signupError: false
+    });
+  };
 
     render() {
         if (this.state.redirectToUser) {
@@ -106,6 +134,10 @@ class HomePage extends Component {
                 handleSignUpChange={this.handleSignUpChange}
                 handleLogIn={this.handleLogIn}
                 handleSignUpSubmit={this.handleSignUpSubmit}
+                user={this.state.user}
+                loginError={this.state.loginError}
+                signupError={this.state.signupError}
+                handleRequestClose={this.handleRequestClose}
                 />}
                 />
                 <Parallax bgImage="../../../hero-opt.jpg" strength={400}>
@@ -117,7 +149,11 @@ class HomePage extends Component {
                 handleLogInChange={this.handleLogInChange}
                 handleSignUpChange={this.handleSignUpChange}
                 handleLogIn={this.handleLogIn}
-                handleSignUpSubmit={this.handleSignUpSubmit}/>
+                handleSignUpSubmit={this.handleSignUpSubmit}
+                user={this.state.user}
+                loginError={this.state.loginError}
+                signupError={this.state.signupError}
+                handleRequestClose={this.handleRequestClose} />
                 </div>
                 </MuiThemeProvider>
         );
