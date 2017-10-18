@@ -68,6 +68,7 @@ updateReport = (event) => {
   subtitle={`Satisfaction: ${this.props.report.satisfaction}`}
   actAsExpander={true}
   showExpandableButton={true}
+  style={{textAlign: 'left'}}
 />
 <CardTitle title={<TextField onBlur={this.updateReport} 
         onChange={this.handleUpdateChange} 
@@ -75,6 +76,12 @@ updateReport = (event) => {
         inputStyle={{textAlign: 'center'}}/>} 
         expandable={true} />
 <CardText expandable={true}>
+<IconButton
+      iconStyle={styles.mediumIcon}
+      style={styles.small}
+      onClick={() => this.props.deleteReport(this.props.carId, this.props.report._id)}>
+      <i className="material-icons">delete</i>
+</IconButton>
 <DetailsDiv>
 <div>Date: {reportDate}</div> 
 <div>
@@ -95,12 +102,6 @@ Satisfaction:
         inputStyle={{textAlign: 'center', minWidth: '8px'}}/>
 </div>
 </DetailsDiv>
-<IconButton
-      iconStyle={styles.mediumIcon}
-      style={styles.small}
-      onClick={() => this.props.deleteReport(this.props.carId, this.props.report._id)}>
-      <i className="material-icons">delete</i>
-</IconButton>
 <TextField onBlur={this.updateReport} 
         onChange={this.handleUpdateChange} 
         name="description" value={this.props.report.description} 

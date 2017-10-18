@@ -10,7 +10,7 @@ const reportSchema = mongoose.Schema({
     description: {type: String, default: 'Add Description'},
     date: {type: Date, default: Date.now},
     location: String,
-    satisfaction: String
+    satisfaction: {type: String, default: ' '}
 })
 
 const carSchema = mongoose.Schema({

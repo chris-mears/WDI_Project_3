@@ -36,28 +36,20 @@ class Tasks extends Component {
         }
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        this.props.createTask(this.props.carId, this.state.newTask)
-        const resetTask = {
-            title: ''
-        }
-        this.setState({newTask: resetTask}) 
-    }
-
     render() {
         return (
             <TasksContainer>
                 <h4>Tasks:</h4>
 
                 <TextField
-                    hintText="New Task"
+                    floatingLabelText="New Task"
                     onChange={this.handleChange}
                     name="title"
                     type="text"
                     value={this.state.newTask.title}
                     onKeyPress={this.handleKeyPress}
-                    onBlur={this.handleSubmit}/>
+                    tooltip="Click Enter to Save"
+                    />
                 <div>
                 {this.props.tasks.map((task) => {
                     return (
