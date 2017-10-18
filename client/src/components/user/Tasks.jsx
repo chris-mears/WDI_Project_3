@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Task from './Task'
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components'
+import ReactTooltip from 'react-tooltip'
 
 
 const TasksContainer = styled.div   `
@@ -48,8 +49,10 @@ class Tasks extends Component {
                     type="text"
                     value={this.state.newTask.title}
                     onKeyPress={this.handleKeyPress}
-                    tooltip="Click Enter to Save"
+                    data-tip="Click Enter to Save"
+                    data-offset="{'top': 20}"
                     />
+                    <ReactTooltip place='bottom' effect='solid' delayShow={1000} event='click' eventOff="blur" />
                 <div>
                 {this.props.tasks.map((task) => {
                     return (
@@ -64,6 +67,7 @@ class Tasks extends Component {
                                 )
                             })}
                 </div>
+
             </TasksContainer>
         );
     }
