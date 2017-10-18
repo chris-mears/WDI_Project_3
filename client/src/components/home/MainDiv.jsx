@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
-import {Link} from 'react-router-dom'
 import LoginModal from './LoginModal'
 
 const MainContainer = styled.div `
 height: 1000px;
+display: flex;
+flex-direction: column;
+align-items: center;
 `
 
 
@@ -12,11 +14,7 @@ class MainDiv extends Component {
     render() {
         return (
             <MainContainer>
-                <br/>
-                <div>
-                    <p>An app to track the health of your car because nobody will care for your care as much as you!</p></div>
-                    <h3>Please Select an Existing User</h3>
-                    {this.props.users.map(user => {return (<Link key={user._id} to={`/user/${user.userName}`}>{user.userName}<br /></Link>)})}
+                    <p>An app to track the health of your car because nobody will care for your care as much as you!</p>
                     <LoginModal 
                 loggedUser={this.props.loggedUser}
                 signUp={this.props.signUp}

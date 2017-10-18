@@ -86,7 +86,7 @@ class HomePage extends Component {
     } catch (err) {
         console.log(err)
     }
-    if (this.state.user.code !== undefined) {
+    if (this.state.user.code !== 11000) {
         //this.setState({redirectToUser: true})
     } else {
         this.handleSignUpError()
@@ -94,7 +94,7 @@ class HomePage extends Component {
   }
 
   handleLoginError = () => {
-    if(this.props.user == null) { 
+    if(this.state.user == null) { 
     this.setState({
         loginError: true,
       })
@@ -102,7 +102,7 @@ class HomePage extends Component {
  }
 
  handleSignUpError = () => {
-    if(this.props.user == null) { 
+    if(this.state.user.code === 11000) { 
     this.setState({
         signupError: true,
       })
