@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const taskSchema = mongoose.Schema({
     title: {type: String, default: 'New Task'},
     description: String,
-    progress: {type: String, default: 'To Do'}
+    completed: {type: Boolean, default: false}
 })
 
 const reportSchema = mongoose.Schema({

@@ -9,7 +9,7 @@ const { Task, Report, Car, User } = require('./schema.js')
 const oilChange = new Task({
     title: 'Change Oil',
     description: 'Need to change my oil',
-    progress: 'To Do'
+    completed: false
 })
 
 const newTireReport = new Report({

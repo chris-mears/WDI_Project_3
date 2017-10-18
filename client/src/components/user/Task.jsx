@@ -60,6 +60,8 @@ updateTask = (event) => {
         <div style={styles.block}>
         <Checkbox
           style={styles.checkbox}
+          name="completed"
+          onClick={this.updateTask}
         />
         </div>
         <TextField onBlur={this.updateTask} 
