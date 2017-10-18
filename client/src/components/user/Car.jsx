@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';

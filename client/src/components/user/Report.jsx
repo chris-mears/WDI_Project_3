@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField'
 import IconButton from 'material-ui/IconButton'
-import DatePicker from 'material-ui/DatePicker'
 
 const DetailsDiv = styled.div`
   margin: 20px;

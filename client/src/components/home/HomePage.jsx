@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import FlatButton from 'material-ui/FlatButton';
 import LoginModal from './LoginModal'
 import LogoIcon from '../LogoIcon'
 import { Parallax } from 'react-parallax';

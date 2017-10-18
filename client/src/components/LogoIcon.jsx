@@ -13,7 +13,7 @@ class LogoIcon extends Component {
     render() {
         return (
             <LogoDiv>
-                <img src="../../../carlog.png" />
+                <img src="../../../carlog.png" alt="Logo" />
             </LogoDiv>
         );
     }

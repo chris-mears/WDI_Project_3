@@ -1,13 +1,5 @@
 import React, {Component} from 'react';
 import Task from './Task'
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn
-} from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components'
 
@@ -34,7 +26,7 @@ class Tasks extends Component {
 
 
     handleKeyPress = (event) => {
-        if(event.charCode==13){
+        if(event.charCode === 13){
             event.preventDefault()
             this.props.createTask(this.props.carId, this.state.newTask)
             const resetTask = {
