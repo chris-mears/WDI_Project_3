@@ -108,7 +108,7 @@ class HomePage extends Component {
                 handleSignUpSubmit={this.handleSignUpSubmit}
                 />}
                 />
-                <Parallax bgImage="../../../hero.jpg" strength={400}>
+                <Parallax bgImage="../../../hero-opt.jpg" strength={400}>
                     <HeroContainer />
                 </Parallax>
                 <MainDiv users={this.state.users}
