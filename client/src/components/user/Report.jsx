@@ -99,17 +99,17 @@ class Report extends Component {
               <div>
                 Location:
                 <TextField
-                  onBlur={this.updateReport}
-                  onChange={this.handleUpdateChange}
-                  name="location"
-                  value={this.props.report.location}
-                  style={{
-                  width: String(this.props.report.location).length + 'em'
-                }}
-                  inputStyle={{
-                  textAlign: 'center',
-                  minWidth: '8px'
-                }}/>
+                onBlur={this.updateReport}
+                onChange={this.handleUpdateChange}
+                name="location"
+                value={this.props.report.location}
+                style={{
+                width: String(this.props.report.satisfaction).length + 'em'
+              }}
+                inputStyle={{
+                textAlign: 'center',
+                minWidth: '8px'
+              }}/>
               </div>
 
               <div>
