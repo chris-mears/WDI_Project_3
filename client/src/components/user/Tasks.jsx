@@ -51,7 +51,7 @@ class Tasks extends Component {
                     value={this.state.newTask.title}
                     onKeyPress={this.handleKeyPress}
                     data-tip="Click Enter to Save"
-                    data-offset={{'top':20}} />
+                    data-offset="{'top':'20'}" />
                 <ReactTooltip
                     place='bottom'
                     effect='solid'
