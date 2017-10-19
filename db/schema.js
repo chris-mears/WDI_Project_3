@@ -9,7 +9,7 @@ const reportSchema = mongoose.Schema({
     title: {type: String, default: 'New Service Report'},
     description: {type: String, default: 'Add Description'},
     date: {type: Date, default: Date.now},
-    location: String,
+    location: {type: String, default: ' '},
     satisfaction: {type: String, default: ' '}
 })
 

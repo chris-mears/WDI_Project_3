@@ -57,9 +57,13 @@ class Report extends Component {
   }
 
   render() {
-    const reportDate = new Date(this.props.report.date)
-      .toUTCString()
-      .substring(0, 17)
+    //Got from https://www.sitepoint.com/javascript-media-queries/
+    const mq = window.matchMedia( "(max-width: 500px)" );
+    let reportDate = new Date(this.props.report.date).toUTCString().substring(0, 17)
+    if (mq.matches) {
+      reportDate = new Date(this.props.report.date).toLocaleString().substring(0,10)
+    }
+
     return (
       <div>
         <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
