@@ -104,7 +104,7 @@ class Report extends Component {
                 name="location"
                 value={this.props.report.location}
                 style={{
-                width: String(this.props.report.satisfaction).length + 'em'
+                width: String(this.props.report.location).length + 'em'
               }}
                 inputStyle={{
                 textAlign: 'center',
